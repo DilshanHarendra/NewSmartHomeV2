@@ -1,6 +1,7 @@
 package com.nmadcreations.newsmarthomev2.ui.main;
 
 import android.content.Context;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,7 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.nmadcreations.newsmarthomev2.GasListFrag;
+import com.nmadcreations.newsmarthomev2.NbulbListFrag;
+import com.nmadcreations.newsmarthomev2.PlugListFrag;
 import com.nmadcreations.newsmarthomev2.R;
+import com.nmadcreations.newsmarthomev2.RgbListFrag;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -18,7 +23,7 @@ import com.nmadcreations.newsmarthomev2.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2,R.string.tab_text_3,R.string.tab_text_4};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -30,7 +35,25 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        Fragment fragment;
+        switch(position){
+            case 0: fragment= new RgbListFrag();
+            break;
+            case 1: fragment=new NbulbListFrag();
+            break;
+            case 2: fragment= new PlugListFrag();
+            break;
+            case  3: fragment= new GasListFrag();
+            break;
+            default:fragment =null;
+            break;
+
+        }
+
+        return fragment;
+
+
+
     }
 
     @Override
@@ -52,6 +75,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 2;
+        return TAB_TITLES.length;
     }
 }
