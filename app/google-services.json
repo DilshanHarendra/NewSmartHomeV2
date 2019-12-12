@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "307455059499",
+    "firebase_url": "https://newsmarthomev2.firebaseio.com",
+    "project_id": "newsmarthomev2",
+    "storage_bucket": "newsmarthomev2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307455059499:android:25590d8c9c4dd506faac6e",
+        "android_client_info": {
+          "package_name": "com.nmadcreations.newsmarthomev2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307455059499-a1au54fic1g02r47eidkaocjhv11h69f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nmadcreations.newsmarthomev2",
+            "certificate_hash": "d8172f7b0799b8d2fe0ed63b4700b97ae2627053"
+          }
+        },
+        {
+          "client_id": "307455059499-oea8dc8jnsl135ba26q15md0t756ia7f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8a5rroTADMH4hIA2ZJoWJfeYJ3OxLnAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307455059499-oea8dc8jnsl135ba26q15md0t756ia7f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
