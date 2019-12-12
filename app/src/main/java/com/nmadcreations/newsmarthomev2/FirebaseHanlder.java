@@ -1,6 +1,14 @@
 package com.nmadcreations.newsmarthomev2;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseHanlder {
 
@@ -22,8 +30,8 @@ public class FirebaseHanlder {
             firebaseDatabase.getReference().child("SmartHome").child(shName).child("User").child(uPosition).setValue(uid);
         }
 
-    public void addHome(String uid){
-        firebaseDatabase.getReference().child("SmartHome").setValue(uid);
+    public void addHome(String homeid){
+        firebaseDatabase.getReference().child("SmartHome").setValue(homeid);
 
     }
     public void addDevice(String uid,String name,String type){
@@ -33,4 +41,43 @@ public class FirebaseHanlder {
 
     }
 
+public void ReadData() {
+    // Read from the database
+    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference usersRef = rootRef.child("General");
+    //  DatabaseReference getData=usersRef.child("Dilshan");// methanata set karnna ona id eka
+    // String id="abc";
+    // ValueEventListener valueEventListener = new ValueEventListener() {
+    usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            for (DataSnapshot data : dataSnapshot.getChildren()){
+
+                // data.getKey() general eke value key
+                DataSnapshot oneUserphone=data.child("phone");
+                DataSnapshot oneUseremail=data.child("name");
+                DataSnapshot oneUsername=data.child("email");
+                DataSnapshot oneUsermessage=data.child("message");
+                Log.d("mytest",oneUserphone.getValue().toString()+" "+oneUseremail.getValue().toString()+" "+oneUsername.getValue().toString()+" "+oneUsermessage.getValue().toString())  ;
+            }
+
+
+            //Do what you need to do with your list
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.d("mytest", databaseError.getMessage()); //Don't ignore errors!
+        }
+    });
+
+    // usersRef.addListenerForSingleValueEvent(valueEventListener);
+
 }
+
+}
+
+
+
+
