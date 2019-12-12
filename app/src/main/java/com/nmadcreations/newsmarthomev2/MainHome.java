@@ -60,37 +60,37 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
 
-//        FirebaseHanlder firebaseHanlder = new FirebaseHanlder();
-//        firebaseHanlder.addUser("user02","Dilshan","Perera","Perera","dial@gmail.com");
-//        firebaseHanlder.addUser("user03","Lakshan","Bandara","bandara","lakshan@gmail.com");
-//        firebaseHanlder.addUser("user04","Chathun","Randika","Randika","Chathun@gmail.com");
-//
-//        firebaseHanlder.addHome("home1");
-//        firebaseHanlder.addHome("home2");
-//
-//        firebaseHanlder.addToHome("user01","home1","u1");
-//        firebaseHanlder.addToHome("user02","home1","u2");
-//        firebaseHanlder.addToHome("user03","home2","u1");
-//        firebaseHanlder.addToHome("user04","home2","u2");
-//
-//        firebaseHanlder.addDevice("S!-RGB-2314","room1","RGB BULB");
-//        firebaseHanlder.addDevice("S!-RGB-2378","room2","RGB BULB");
-//        firebaseHanlder.addDevice("S!-RGB-1314","room3","RGB BULB");
-//        firebaseHanlder.addDevice("S!-RGB-4378","room4","RGB BULB");
-//        firebaseHanlder.addDevice("S!-RGB-1394","room5","RGB BULB");
-//        firebaseHanlder.addDevice("S!-RGB-4378","room6","RGB BULB");
-//        firebaseHanlder.addDevice("S!-PLG-4380","room1","PLUG");
-//        firebaseHanlder.addDevice("S!-PLG-4088","room2","PLUG");
-//        firebaseHanlder.addDevice("S!-PLG-4988","room3","PLUG");
-//        firebaseHanlder.addDevice("S!-PLG-4288","room4","PLUG");
-//        firebaseHanlder.addDevice("S!-PLG-3288","room5","PLUG");
-//        firebaseHanlder.addDevice("S!-PLG-2348","room6","PLUG");
-//        firebaseHanlder.addDevice("S!-BLB-1388","room1","BULB");
-//        firebaseHanlder.addDevice("S!-BLB-2388","room2","BULB");
-//        firebaseHanlder.addDevice("S!-BLB-3388","room3","BULB");
-//        firebaseHanlder.addDevice("S!-BLB-4588","room4","BULB");
-//
-//        firebaseHanlder.ReadData();
+        FirebaseHanlder firebaseHanlder = new FirebaseHanlder();
+        firebaseHanlder.addUser("user02","Dilshan","Perera","Perera","dial@gmail.com");
+        firebaseHanlder.addUser("user03","Lakshan","Bandara","bandara","lakshan@gmail.com");
+        firebaseHanlder.addUser("user04","Chathun","Randika","Randika","Chathun@gmail.com");
+
+        firebaseHanlder.addHome("home1");
+        firebaseHanlder.addHome("home2");
+
+        firebaseHanlder.addToHome("user01","home1","u1");
+        firebaseHanlder.addToHome("user02","home1","u2");
+        firebaseHanlder.addToHome("user03","home2","u1");
+        firebaseHanlder.addToHome("user04","home2","u2");
+
+        firebaseHanlder.addDevice("S!-RGB-2314","room1","RGB BULB");
+        firebaseHanlder.addDevice("S!-RGB-2378","room2","RGB BULB");
+        firebaseHanlder.addDevice("S!-RGB-1314","room3","RGB BULB");
+        firebaseHanlder.addDevice("S!-RGB-4378","room4","RGB BULB");
+        firebaseHanlder.addDevice("S!-RGB-1394","room5","RGB BULB");
+        firebaseHanlder.addDevice("S!-RGB-4378","room6","RGB BULB");
+        firebaseHanlder.addDevice("S!-PLG-4380","room1","PLUG");
+        firebaseHanlder.addDevice("S!-PLG-4088","room2","PLUG");
+        firebaseHanlder.addDevice("S!-PLG-4988","room3","PLUG");
+        firebaseHanlder.addDevice("S!-PLG-4288","room4","PLUG");
+        firebaseHanlder.addDevice("S!-PLG-3288","room5","PLUG");
+        firebaseHanlder.addDevice("S!-PLG-2348","room6","PLUG");
+        firebaseHanlder.addDevice("S!-BLB-1388","room1","BULB");
+        firebaseHanlder.addDevice("S!-BLB-2388","room2","BULB");
+        firebaseHanlder.addDevice("S!-BLB-3388","room3","BULB");
+        firebaseHanlder.addDevice("S!-BLB-4588","room4","BULB");
+
+        firebaseHanlder.ReadData();
 
 
 
