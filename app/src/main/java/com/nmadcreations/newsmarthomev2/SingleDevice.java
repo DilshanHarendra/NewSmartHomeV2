@@ -5,18 +5,22 @@ public class SingleDevice {
     private int mImageResource;
     private String mText1;
     private String mtext2;
+    private String mdeviceId;
 
-    public SingleDevice(int imageResource, String text1, String text2){
+    public SingleDevice(String did, int imageResource, String text1, String text2){
+        mdeviceId = did;
         mImageResource = imageResource;
         mText1 = text1;
         mtext2 = text2;
     }
 
-    //set itemclick change text
-    public void changeText2(String text){
-        mtext2 = text;
+    public String getMdeviceId() {
+        return mdeviceId;
     }
 
+    public void setMdeviceId(String mdeviceId) {
+        this.mdeviceId = mdeviceId;
+    }
 
     public int getmImageResource(){
         return mImageResource;
