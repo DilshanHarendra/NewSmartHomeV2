@@ -43,8 +43,8 @@ public class FirebaseHanlder {
 
 public void ReadData() {
     // Read from the database
-    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference usersRef = rootRef.child("General");
+    DatabaseReference rootRef = firebaseDatabase.getReference();
+    DatabaseReference usersRef = rootRef.child("Users");
     //  DatabaseReference getData=usersRef.child("Dilshan");// methanata set karnna ona id eka
     // String id="abc";
     // ValueEventListener valueEventListener = new ValueEventListener() {
@@ -55,10 +55,10 @@ public void ReadData() {
             for (DataSnapshot data : dataSnapshot.getChildren()){
 
                 // data.getKey() general eke value key
-                DataSnapshot oneUserphone=data.child("phone");
-                DataSnapshot oneUseremail=data.child("name");
-                DataSnapshot oneUsername=data.child("email");
-                DataSnapshot oneUsermessage=data.child("message");
+                DataSnapshot oneUserphone=data.child("UEmail");
+                DataSnapshot oneUseremail=data.child("UFname");
+                DataSnapshot oneUsername=data.child("UGivenName");
+                DataSnapshot oneUsermessage=data.child("UId");
                 Log.d("mytest",oneUserphone.getValue().toString()+" "+oneUseremail.getValue().toString()+" "+oneUsername.getValue().toString()+" "+oneUsermessage.getValue().toString())  ;
             }
 

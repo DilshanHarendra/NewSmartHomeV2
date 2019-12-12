@@ -65,13 +65,13 @@ public class PlaceholderFragment extends Fragment {
         pageViewModel.setIndex(index);
 
        // final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                //textView.setText(s);
-                Toast.makeText(getActivity(), s.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        pageViewModel.getText().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                //textView.setText(s);
+//                Toast.makeText(getActivity(), s.toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
@@ -95,7 +95,7 @@ public class PlaceholderFragment extends Fragment {
         if (did!=null){
             insertItem(did,nickname);
         }
-
+        Toast.makeText(getActivity(),"fefefefefefefef", Toast.LENGTH_SHORT).show();
         return root;
     }
 
