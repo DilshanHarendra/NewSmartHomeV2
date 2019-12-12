@@ -37,7 +37,17 @@ public class MainHome extends AppCompatActivity {
         });
 
         FirebaseHanlder firebaseHanlder = new FirebaseHanlder();
-        firebaseHanlder.addUser("user01","Eshan","Kavinda","EshanK","eshankav@gmail.com");
+        firebaseHanlder.addUser("user02","Dilshan","Perera","Perera","dial@gmail.com");
+        firebaseHanlder.addUser("user03","Lakshan","Bandara","bandara","lakshan@gmail.com");
+        firebaseHanlder.addUser("user04","Chathun","Randika","Randika","Chathun@gmail.com");
+
+        firebaseHanlder.addHome("home1");
+        firebaseHanlder.addHome("home2");
+
+        firebaseHanlder.addToHome("user01","home1","u1");
+        firebaseHanlder.addToHome("user02","home1","u2");
+        firebaseHanlder.addToHome("user03","home2","u1");
+        firebaseHanlder.addToHome("user04","home2","u2");
 
 
     }
