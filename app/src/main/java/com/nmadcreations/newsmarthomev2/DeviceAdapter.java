@@ -66,15 +66,15 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
 
         final SingleDevice currentItem = mExampleList.get(position);
         holder.mImageView.setImageResource(currentItem.getmImageResource());
-        holder.mTextView1.setText(currentItem.getId());
-        holder.mTextView2.setText(currentItem.getName());
+        holder.mTextView1.setText(currentItem.getmText1());
+        holder.mTextView2.setText(currentItem.getMtext2());
 
         holder.itemView.setTag(position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("newmad","clicked "+currentItem.getMdeviceId().toString());
+                Log.d("newmad","clicked "+currentItem.getmText1().toString());
             }
         });
 
@@ -83,9 +83,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b){
                     Toast.makeText(mcontext, "fefefefe", Toast.LENGTH_SHORT).show();
-                    Log.d("newmad","on "+currentItem.getMdeviceId().toString());
+                 //   Log.d("newmad","on "+currentItem.getMdeviceId().toString());
                 }else {
-                    Log.d("newmad","off possion "+currentItem.getMdeviceId().toString());
+                   // Log.d("newmad","off possion "+currentItem.getMdeviceId().toString());
                 }
             }
         });
