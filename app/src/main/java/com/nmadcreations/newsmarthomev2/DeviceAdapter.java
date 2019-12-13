@@ -116,8 +116,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
 
         SingleDevice currentItem = mExampleList.get(position);
         holder.mImageView.setImageResource(currentItem.getmImageResource());
-        holder.mTextView1.setText(currentItem.getmText1());
-        holder.mTextView2.setText(currentItem.getMtext2());
+        holder.mTextView1.setText(currentItem.getId());
+        holder.mTextView2.setText(currentItem.getName());
 
         holder.itemView.setTag(position);
 
