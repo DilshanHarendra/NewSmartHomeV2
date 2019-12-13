@@ -95,12 +95,12 @@ public class PlaceholderFragment extends Fragment {
         if (did!=null){
             insertItem(did,nickname);
         }
-        Toast.makeText(getActivity(),"fefefefefefefef", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(),"fefefefefefefef", Toast.LENGTH_SHORT).show();
         return root;
     }
 
     public void insertItem(String did, String nn){
-      //  mExampleList.add(new SingleDevice(did,R.drawable.ic_android,nn,did));
+        mExampleList.add(new SingleDevice(did,R.drawable.ic_android,nn,did));
         mAdapter.notifyDataSetChanged();
 
     }
@@ -112,11 +112,11 @@ public class PlaceholderFragment extends Fragment {
 
     public void createExampleList(){
         mExampleList = new ArrayList<>();
-  /*      mExampleList.add(new SingleDevice("S!-RGB-4533",R.drawable.ic_android,"Plug","TV"));
         mExampleList.add(new SingleDevice("S!-RGB-4533",R.drawable.ic_android,"Plug","TV"));
-        mExampleList.add(new SingleDevice("S!-RGB-4533",R.drawable.ic_android,"Bulb","TV"));
-        mExampleList.add(new SingleDevice("S!-RGB-4533",R.drawable.ic_android,"Bulb","TV"));
-*/
+        mExampleList.add(new SingleDevice("S!-RGB-3466",R.drawable.ic_android,"Plug","TV"));
+        mExampleList.add(new SingleDevice("S!-RGB-4878",R.drawable.ic_android,"Bulb","TV"));
+        mExampleList.add(new SingleDevice("S!-RGB-8888",R.drawable.ic_android,"Bulb","TV"));
+
         new ItemTouchHelper(itemTouchhelperCallback).attachToRecyclerView(mRecyclerView);
 
     }

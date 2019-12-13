@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">NewSmartHomeV2</string>
     <string name="title_activity_main_home">MainHome</string>
-    <string name="tab_text_1">Bulbs</string>
-    <string name="tab_text_2">Plugs</string>
-    <string name="tab_text_3">Bulbs</string>
+    <string name="tab_text_1">RGBs</string>
+    <string name="tab_text_2">Bulbs</string>
+    <string name="tab_text_3">Plugs</string>
     <string name="tab_text_4">Gas</string>
 
     <!-- TODO: Remove or change this placeholder text -->
