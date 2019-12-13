@@ -64,6 +64,15 @@ public class PlaceholderFragment extends Fragment {
         }
         pageViewModel.setIndex(index);
 
+       // final TextView textView = root.findViewById(R.id.section_label);
+//        pageViewModel.getText().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                //textView.setText(s);
+//                Toast.makeText(getActivity(), s.toString(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
     }
 
     @Override
@@ -78,14 +87,7 @@ public class PlaceholderFragment extends Fragment {
         createExampleList();
         buildRecycleView();
 
-        final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-                Toast.makeText(getActivity(), s.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         Intent intent = getActivity().getIntent();
         String did = intent.getStringExtra("deviceIdQr");
@@ -93,12 +95,12 @@ public class PlaceholderFragment extends Fragment {
         if (did!=null){
             insertItem(did,nickname);
         }
-
+        Toast.makeText(getActivity(),"fefefefefefefef", Toast.LENGTH_SHORT).show();
         return root;
     }
 
     public void insertItem(String did, String nn){
-        mExampleList.add(new SingleDevice(R.drawable.ic_android,nn,did));
+        mExampleList.add(new SingleDevice(did,R.drawable.ic_android,nn,did));
         mAdapter.notifyDataSetChanged();
 
     }
@@ -108,16 +110,12 @@ public class PlaceholderFragment extends Fragment {
         mAdapter.notifyItemRemoved(position);
     }
 
-//    public void changeItem(int position, String text){
-//        mExampleList.get(position).changeText2(text);
-//        mAdapter.notifyItemChanged(position);
-//    }
     public void createExampleList(){
         mExampleList = new ArrayList<>();
-        mExampleList.add(new SingleDevice(R.drawable.ic_android,"Plug","TV"));
-        mExampleList.add(new SingleDevice(R.drawable.ic_android,"Plug","TV"));
-        mExampleList.add(new SingleDevice(R.drawable.ic_android,"Bulb","TV"));
-        mExampleList.add(new SingleDevice(R.drawable.ic_android,"Bulb","TV"));
+        mExampleList.add(new SingleDevice("S!-RGB-4533",R.drawable.ic_android,"Plug","TV"));
+        mExampleList.add(new SingleDevice("S!-RGB-4533",R.drawable.ic_android,"Plug","TV"));
+        mExampleList.add(new SingleDevice("S!-RGB-4533",R.drawable.ic_android,"Bulb","TV"));
+        mExampleList.add(new SingleDevice("S!-RGB-4533",R.drawable.ic_android,"Bulb","TV"));
 
         new ItemTouchHelper(itemTouchhelperCallback).attachToRecyclerView(mRecyclerView);
 
@@ -125,20 +123,9 @@ public class PlaceholderFragment extends Fragment {
     public void buildRecycleView(){
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new DeviceAdapter(mExampleList);
+        mAdapter = new DeviceAdapter(mExampleList,getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
-        //set itemclick
-        mAdapter.setOnItemClickListner(new DeviceAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onDeleteClick(int position) {
-            }
-        });
 
     }
 

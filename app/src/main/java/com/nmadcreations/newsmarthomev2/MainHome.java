@@ -10,7 +10,6 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +49,6 @@ public class MainHome extends AppCompatActivity {
         firebaseHanlder.addToHome("user03","home2","u1");
         firebaseHanlder.addToHome("user04","home2","u2");
 
-       firebaseHanlder.getDevices("user01");
+
     }
 }
