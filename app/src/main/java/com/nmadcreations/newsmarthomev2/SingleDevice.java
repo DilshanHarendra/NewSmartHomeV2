@@ -3,31 +3,42 @@ package com.nmadcreations.newsmarthomev2;
 public class SingleDevice {
 
     private int mImageResource;
-    private String mText1;
-    private String mtext2;
+    private String id;
+    private String name;
+    private String type;
 
     public SingleDevice(int imageResource, String text1, String text2){
         mImageResource = imageResource;
-        mText1 = text1;
-        mtext2 = text2;
+        id = text1;
+        name = text2;
     }
 
     //set itemclick change text
     public void changeText2(String text){
-        mtext2 = text;
+        name = text;
     }
 
 
-    public int getmImageResource(){
+    public SingleDevice(String id, String name, String type) {
+        this.id = id;
+        this.name = name;
+        mImageResource=1;
+        this.type = type;
+    }
+
+    public int getmImageResource() {
         return mImageResource;
     }
 
-    public String getmText1() {
-        return mText1;
+    public String getId() {
+        return id;
     }
 
-    public String getMtext2() {
-        return mtext2;
+    public String getName() {
+        return name;
     }
 
+    public String getType() {
+        return type;
+    }
 }
