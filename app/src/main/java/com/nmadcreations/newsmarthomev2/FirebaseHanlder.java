@@ -29,6 +29,9 @@ public class FirebaseHanlder {
         firebaseDatabase.getReference().child("Users").child(uid).child("UEmail").setValue(uemail);
     }
 
+    public void addHometoUser(String uid,String hname){
+        firebaseDatabase.getReference().child("Users").child(uid).child("SHname").setValue(hname);
+    }
     public void addUserToHome(String uid,String shName,String uPosition){
             firebaseDatabase.getReference().child("SmartHome").child(shName).child("User").child("u"+getUserCount()).setValue(uid);
         }
