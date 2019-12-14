@@ -1,6 +1,8 @@
 package com.nmadcreations.newsmarthomev2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Vibrator;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nmadcreations.newsmarthomev2.ui.main.SectionsPagerAdapter;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class MainHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,6 +36,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     private ImageView imageView1;
     private TextView uName,navmail;
     private DrawerLayout drawerLayout;
+    private Vibrator vibrator;
    // private SearchView searchView;
 
     @Override
@@ -38,12 +44,13 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home);
         drawerLayout = findViewById(R.id.dlayout);
+        vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
@@ -57,44 +64,81 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
 
         FirebaseHanlder firebaseHanlder = new FirebaseHanlder();
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               startActivity(new Intent(MainHome.this,QrReader.class));
-            }
-        });
 
 
-        firebaseHanlder.addUser("user02","Dilshan","Perera","Perera","dial@gmail.com");
-        firebaseHanlder.addUser("user03","Lakshan","Bandara","bandara","lakshan@gmail.com");
-        firebaseHanlder.addUser("user04","Chathun","Randika","Randika","Chathun@gmail.com");
+        if (Build.VERSION.SDK_INT>=21){
+            ImageView icon = new ImageView(this); // Create an icon
+            icon.setImageDrawable(getDrawable(R.drawable.moreic));
+            com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton actionButton = new com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.Builder(this)
+                    .setContentView(icon)
+                    .build();
 
-        firebaseHanlder.addHome("home1");
-        firebaseHanlder.addHome("home2");
+            SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+// repeat many times:
 
-        firebaseHanlder.addToHome("user01","home1","u1");
-        firebaseHanlder.addToHome("user02","home1","u2");
-        firebaseHanlder.addToHome("user03","home2","u1");
-        firebaseHanlder.addToHome("user04","home2","u2");
+            ImageView itemIcon1 = new ImageView(this);
+            itemIcon1.setImageDrawable(getDrawable(R.drawable.wifi));
+            SubActionButton button1 = itemBuilder.setContentView(itemIcon1).build();
 
-        firebaseHanlder.addDevice("S!-RGB-2314","room1","RGB");
-        firebaseHanlder.addDevice("S!-RGB-2378","room2","RGB");
-        firebaseHanlder.addDevice("S!-RGB-1314","room3","RGB");
-        firebaseHanlder.addDevice("S!-RGB-4378","room4","RGB");
-        firebaseHanlder.addDevice("S!-RGB-1394","room5","RGB");
-        firebaseHanlder.addDevice("S!-RGB-4378","room6","RGB");
-        firebaseHanlder.addDevice("S!-PLG-4380","room1","PLUG");
-        firebaseHanlder.addDevice("S!-PLG-4088","room2","PLUG");
-        firebaseHanlder.addDevice("S!-PLG-4988","room3","PLUG");
-        firebaseHanlder.addDevice("S!-PLG-4288","room4","PLUG");
-        firebaseHanlder.addDevice("S!-PLG-3288","room5","PLUG");
-        firebaseHanlder.addDevice("S!-PLG-2348","room6","PLUG");
-        firebaseHanlder.addDevice("S!-BLB-1388","room1","BULB");
-        firebaseHanlder.addDevice("S!-BLB-2388","room2","BULB");
-        firebaseHanlder.addDevice("S!-BLB-3388","room3","BULB");
-        firebaseHanlder.addDevice("S!-BLB-4588","room4","BULB");
+            ImageView itemIcon2 = new ImageView(this);
+            itemIcon2.setImageDrawable(getDrawable(R.drawable.plus));
+            SubActionButton button2 = itemBuilder.setContentView(itemIcon2).build();
 
-        //firebaseHanlder.ReadData();
+            ImageView itemIcon3 = new ImageView(this);
+            itemIcon3.setImageDrawable(getDrawable(R.drawable.settingw));
+            SubActionButton button3 = itemBuilder.setContentView(itemIcon3).build();
+
+
+
+            itemIcon1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    vibrator.vibrate(50);
+                    startActivity(new Intent(MainHome.this,ConnectToWifi.class));
+                }
+            });
+            itemIcon2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    vibrator.vibrate(50);
+                    startActivity(new Intent(MainHome.this,QrReader.class));
+
+                }
+            });
+            itemIcon3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    vibrator.vibrate(50);
+
+                }
+            });
+
+
+            SubActionButton.LayoutParams layoutParams1 = (SubActionButton.LayoutParams) button3.getLayoutParams();
+            layoutParams1.width = 160;
+            layoutParams1.height = 160;
+            layoutParams1.bottomMargin = 40;
+            layoutParams1.rightMargin = 100;
+
+
+
+            com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.LayoutParams layoutParams2 = (com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton.LayoutParams) actionButton.getLayoutParams();
+            layoutParams2.width = 200;
+            layoutParams2.rightMargin = 75;
+
+            layoutParams2.bottomMargin = 110;
+            layoutParams2.height = 200;
+
+            FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this).setRadius(500)
+                    .addSubActionView(button1)
+                    .addSubActionView(button2)
+                    .addSubActionView(button3)
+                    .attachTo(actionButton)
+                    .build();
+
+
+        }
+
 
 
 
@@ -137,5 +181,8 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
 //            startActivity(intent);
 
         }
+    }
+    public  void goToSunMenuList(String id){
+        startActivity( new Intent(this,SubMenuList.class));
     }
 }

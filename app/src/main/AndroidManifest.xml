@@ -15,7 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QrReader"></activity>
+        <activity android:name=".ChangeColor"></activity>
+        <activity android:name=".ConnectToWifi" />
+        <activity android:name=".BPSubMenu" />
+        <activity android:name=".SubMenuList" />
+        <activity android:name=".QrReader" />
         <activity
             android:name=".MainHome"
             android:label="@string/title_activity_main_home"

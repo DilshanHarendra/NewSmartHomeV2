@@ -52,6 +52,7 @@ public class RgbListFrag extends Fragment {
         mExampleList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
+
         DatabaseReference rootRef = firebaseDatabase.getReference().child("Users").child(uid);
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,6 +100,7 @@ public class RgbListFrag extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
 
 
     return view;

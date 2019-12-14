@@ -5,6 +5,8 @@
     <string name="tab_text_2">Bulbs</string>
     <string name="tab_text_3">Plugs</string>
     <string name="tab_text_4">Gas</string>
+    <string name="menu"></string>
+    <string name="textview">Office Bulb</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

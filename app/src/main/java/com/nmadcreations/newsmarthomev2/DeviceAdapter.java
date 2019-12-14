@@ -1,6 +1,10 @@
 package com.nmadcreations.newsmarthomev2;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +20,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +44,20 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
     }
 
 
-    public  static class ExampleViewHolder extends RecyclerView.ViewHolder{
+
+    public  class ExampleViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView mImageView;
         public TextView mTextView1;
         public TextView mTextView2;
         public ImageView mremoveDevice;
         public ToggleButton switch1;
+
+
+
+
+
+
         public RelativeLayout view_forground, view_background;
 
 
@@ -74,15 +90,24 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
 
         final SingleDevice currentItem = mExampleList.get(position);
         holder.mImageView.setImageResource(currentItem.getmImageResource());
-        holder.mTextView1.setText(currentItem.getmText1());
-        holder.mTextView2.setText(currentItem.getMtext2());
+        holder.mTextView1.setText(currentItem.getMtext2());
+        holder.mTextView2.setText(currentItem.getmText1());
 
         holder.itemView.setTag(position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("nsmart","clicked "+currentItem.getmText1().toString());
+                Log.d("nsmart","clicked "+currentItem.getmDeviceId().toString());
+
+                if (currentItem.getmDeviceId().startsWith("S!-RGB")){
+                 mcontext.startActivity( new Intent(mcontext, SubMenuList.class).putExtra("Id",currentItem.getmDeviceId().toString().trim()));
+                }else if(currentItem.getmDeviceId().startsWith("S!-BLB")){
+                    mcontext.startActivity( new Intent(mcontext, BPSubMenu.class).putExtra("Id",currentItem.getmDeviceId().toString().trim()));
+                }else if (currentItem.getmDeviceId().startsWith("S!-PLG")){
+                    mcontext.startActivity( new Intent(mcontext, BPSubMenu.class).putExtra("Id",currentItem.getmDeviceId().toString().trim()));
+                }
+
             }
         });
 
