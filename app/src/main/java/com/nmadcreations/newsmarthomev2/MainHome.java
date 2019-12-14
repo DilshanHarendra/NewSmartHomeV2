@@ -46,7 +46,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     private FirebaseDatabase firebaseDatabase;
     private String uid="user01";
     private SearchView searchView;
-
+//--
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
