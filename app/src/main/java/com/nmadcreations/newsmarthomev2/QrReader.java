@@ -35,7 +35,6 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
         super.onCreate(savedInstanceState);
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
-        getSupportActionBar().hide();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (checkPermission()){
