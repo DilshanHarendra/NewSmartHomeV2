@@ -67,12 +67,12 @@ public class PlugListFrag extends Fragment{
                 for (DataSnapshot data: dataSnapshot.getChildren()){
                     try{
                         if (data.getKey().equals("SHname")){
-                            Log.d("nsmart", "home name "+data.getValue());
+                        //    Log.d("nsmart", "home name "+data.getValue());
                             homeName=data.getValue().toString();
                             break;
                         }
                     }catch (Exception e){
-                            Log.d("nsmart", "error "+e);
+                          //  Log.d("nsmart", "error "+e);
                     }
                 }
             }
@@ -96,11 +96,11 @@ public class PlugListFrag extends Fragment{
                                 String t1 = snapshot.child("deviceType").getValue().toString();
                                 String t2 = snapshot.child("deviceName").getValue().toString();
                                 createExampleList(did, t1, t2);
-                                Log.d("nsmart", "values| " + snapshot.child("deviceType").getValue().toString() + " - " + snapshot.child("deviceID").getValue().toString());
+                             //   Log.d("nsmart", "values| " + snapshot.child("deviceType").getValue().toString() + " - " + snapshot.child("deviceID").getValue().toString());
                             }
                         }
                     }catch (Exception e){
-                        Log.d("nsmart", "error "+e);
+                       // Log.d("nsmart", "error "+e);
                     }
                 }
                 buildRecycleView();

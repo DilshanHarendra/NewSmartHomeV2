@@ -12,6 +12,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseHanlder {
 
+    private String homeName="home1";
+    int c=0;
+    long x=0;
     public FirebaseHanlder(){
 
     }
@@ -26,56 +29,86 @@ public class FirebaseHanlder {
         firebaseDatabase.getReference().child("Users").child(uid).child("UEmail").setValue(uemail);
     }
 
-    public void addToHome(String uid,String shName,String uPosition){
-            firebaseDatabase.getReference().child("SmartHome").child(shName).child("User").child(uPosition).setValue(uid);
+    public void addUserToHome(String uid,String shName,String uPosition){
+            firebaseDatabase.getReference().child("SmartHome").child(shName).child("User").child("u"+getUserCount()).setValue(uid);
         }
 
-    public void addHome(String homeid){
+    public void createHome(String homeid){
         firebaseDatabase.getReference().child("SmartHome").setValue(homeid);
 
+
     }
-    public void addDevice(String uid,String name,String type){
-        firebaseDatabase.getReference().child("Device").child(uid).child("deviceID").setValue(uid);
-        firebaseDatabase.getReference().child("Device").child(uid).child("deviceName").setValue(name);
-        firebaseDatabase.getReference().child("Device").child(uid).child("deviceType").setValue(type);
+    public void addDevice(String did,String name,String type){
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceID").setValue(did);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceName").setValue(name);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceType").setValue(type);
+        firebaseDatabase.getReference().child("Device").child(did).child("alarmId").setValue(getAlarmId());
+        firebaseDatabase.getReference().child("Device").child(did).child("function").setValue("enargy");
+        firebaseDatabase.getReference().child("Device").child(did).child("cHex").setValue("0");
+        firebaseDatabase.getReference().child("Device").child(did).child("state").setValue("0");
+        firebaseDatabase.getReference().child("Device").child(did).child("cR").setValue("0");
+        firebaseDatabase.getReference().child("Device").child(did).child("cG").setValue("0");
+        firebaseDatabase.getReference().child("Device").child(did).child("cB").setValue("0");
 
     }
 
-public void ReadData() {
-    // Read from the database
-    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference usersRef = rootRef.child("General");
-    //  DatabaseReference getData=usersRef.child("Dilshan");// methanata set karnna ona id eka
-    // String id="abc";
-    // ValueEventListener valueEventListener = new ValueEventListener() {
-    usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+private int getAlarmId(){
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Device");
+
+    databaseReference.addValueEventListener(new ValueEventListener() {
         @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-            for (DataSnapshot data : dataSnapshot.getChildren()){
-
-                // data.getKey() general eke value key
-                DataSnapshot oneUserphone=data.child("phone");
-                DataSnapshot oneUseremail=data.child("name");
-                DataSnapshot oneUsername=data.child("email");
-                DataSnapshot oneUsermessage=data.child("message");
-                Log.d("mytest",oneUserphone.getValue().toString()+" "+oneUseremail.getValue().toString()+" "+oneUsername.getValue().toString()+" "+oneUsermessage.getValue().toString())  ;
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                try {
+                    if (snapshot.child("SHname").getValue().toString().trim().equals(homeName)) {
+                        Log.d("nsmart","check No value");
+                        c++;
+                    }
+                }catch (Exception e){
+                    //     Log.d("nsmart", "error "+e);
+                }
             }
-
-
-            //Do what you need to do with your list
+            Log.d("nsmart","check No value"+c);
         }
-
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
-            Log.d("mytest", databaseError.getMessage()); //Don't ignore errors!
         }
     });
-
-    // usersRef.addListenerForSingleValueEvent(valueEventListener);
-
+    c++;
+    return  c;
 }
+       private long getUserCount(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("SmartHome").child(homeName).child("User");
 
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                    try {
+                        if (dataSnapshot.hasChildren()){
+                            Log.d("nsmart","childern"+dataSnapshot.getChildrenCount());
+                            x=dataSnapshot.getChildrenCount();
+                        }else{
+                            x=1;
+                        }
+
+
+
+                    }catch (Exception e){
+                        //     Log.d("nsmart", "error "+e);
+                    }
+
+                Log.d("nsmart","check No value"+x);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        return  x;
+    }
 }
 
 

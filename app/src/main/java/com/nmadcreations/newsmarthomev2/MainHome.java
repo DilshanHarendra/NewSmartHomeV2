@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +27,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.nmadcreations.newsmarthomev2.ui.main.SectionsPagerAdapter;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
@@ -37,6 +43,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     private TextView uName,navmail;
     private DrawerLayout drawerLayout;
     private Vibrator vibrator;
+
    // private SearchView searchView;
 
     @Override
@@ -50,6 +57,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
 
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -138,6 +146,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
 
 
         }
+
 
 
 
