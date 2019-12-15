@@ -49,8 +49,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
     public  class ExampleViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView mImageView;
-        public TextView mTextView1;
-        public TextView mTextView2;
+        public TextView name;
+        public TextView type;
         public ImageView mremoveDevice;
         public ToggleButton switch1;
 
@@ -66,8 +66,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
             super(itemView);
 
             mImageView = itemView.findViewById(R.id.imageView);
-            mTextView1 = itemView.findViewById(R.id.textView);
-            mTextView2 = itemView.findViewById(R.id.textView2);
+            name = itemView.findViewById(R.id.textView);
+            type = itemView.findViewById(R.id.textView2);
             mremoveDevice = itemView.findViewById(R.id.deviceRemove);
             switch1 = itemView.findViewById(R.id.switch1);
 
@@ -91,8 +91,8 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
 
         final SingleDevice currentItem = mExampleList.get(position);
         holder.mImageView.setImageResource(currentItem.getmImageResource());
-        holder.mTextView1.setText(currentItem.getMtext2());
-        holder.mTextView2.setText(currentItem.getmText1());
+        holder.type.setText(currentItem.gettype());
+        holder.name.setText(currentItem.getname());
 
         holder.itemView.setTag(position);
 
@@ -173,7 +173,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
                 String filterPattern = charSequence.toString().toLowerCase().trim();
 
                 for (SingleDevice device : mExamplelistwithSearch){
-                    if (device.getMtext2().toLowerCase().contains(filterPattern)){
+                    if (device.getname().toLowerCase().contains(filterPattern)){
                         filteredList.add(device);
                     }
                 }
