@@ -33,7 +33,7 @@ public class BPSubMenu extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.child("state").getValue()==null){
-                    FirebaseDatabase.getInstance().getReference().child("Device").child(did).child("state").setValue("0");
+                    //FirebaseDatabase.getInstance().getReference().child("Device").child(did).child("state").setValue("0");
                 }else{
                     if (dataSnapshot.child("state").getValue().equals("0")){
                         buttonOnOff.setBackgroundResource(R.drawable.offbutton);

@@ -94,13 +94,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
         holder.type.setText(currentItem.gettype());
         holder.name.setText(currentItem.getname());
 
-        holder.itemView.setTag(position);
+        holder.itemView.setTag(currentItem.getmDeviceId().toString());
 
         FirebaseDatabase.getInstance().getReference().child("Device").child(currentItem.getmDeviceId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("state").getValue()==null){
-                    FirebaseDatabase.getInstance().getReference().child("Device").child(currentItem.getmDeviceId()).child("state").setValue("0");
+                   // FirebaseDatabase.getInstance().getReference().child("Device").child(currentItem.getmDeviceId()).child("state").setValue("0");
                 }else{
                     if (dataSnapshot.child("state").getValue().equals("0")){
                         holder.switch1.setBackgroundResource(R.drawable.offbutton);

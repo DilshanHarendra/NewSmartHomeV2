@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -125,7 +127,7 @@ public class NbulbListFrag extends Fragment {
 
 
 
-    ItemTouchHelper.SimpleCallback itemTouchhelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+    ItemTouchHelper.SimpleCallback itemTouchhelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -133,22 +135,45 @@ public class NbulbListFrag extends Fragment {
 
         @Override
         public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+            //Log.d("nsmart","dir : "+direction);
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    removeItem((Integer) viewHolder.itemView.getTag());
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //  refresh();
-                }
-            });
-            //builder.setIcon(R.drawable.delete);
-            builder.setTitle("Device Remove");
-            builder.setMessage("If you want to really delete your device. All settings will be removed can not undo.!");
+            if (direction == ItemTouchHelper.LEFT) {
+                //builder.setIcon(R.drawable.delete);
+                builder.setTitle("Device Remove");
+                builder.setMessage("If you want to really delete your device. All settings will be removed can not undo.!");
+                builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //removeItem((Integer) viewHolder.itemView.getTag());
+                        firebaseDatabase.getReference().child("Device").child(viewHolder.itemView.getTag().toString().trim()).removeValue();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        buildRecycleView();
+                    }
+                });
+            }else {
+                final EditText nickname = new EditText(getActivity());
+                builder.setTitle("Enter new device name:");
+                nickname.setHint("Nickname:");
+                nickname.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(nickname);
+                builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        firebaseDatabase.getReference().child("Device").child(viewHolder.itemView.getTag().toString().trim()).child("deviceName").setValue(nickname.getText().toString());
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        buildRecycleView();
+                    }
+                });
+
+            }
             builder.setCancelable(false);
             AlertDialog alert = builder.create();
             alert.show();
