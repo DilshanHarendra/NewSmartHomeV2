@@ -40,12 +40,13 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
 
 
     private ImageView imageView1;
-    private TextView uName,navmail;
+    private TextView hName,navmail;
     private DrawerLayout drawerLayout;
     private Vibrator vibrator;
-
-   // private SearchView searchView;
-
+    private FirebaseDatabase firebaseDatabase;
+    private String uid="user01";
+    private SearchView searchView;
+//--
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,23 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         tabs.setupWithViewPager(viewPager);
 
 
+        //PlugListFrag plugListFrag = new PlugListFrag();
+        searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+               // plugListFrag.test1(newText);
+                Log.d("nsmart","Text: "+newText);
+                return false;
+            }
+        });
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         Menu nav_Menu = navigationView.getMenu();
@@ -66,11 +84,27 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         navigationView.setNavigationItemSelectedListener(this);
 
         View navView = navigationView.getHeaderView(0);
-        uName = (TextView) navView.findViewById(R.id.userName);
+        hName = (TextView) navView.findViewById(R.id.userName);
         navmail = (TextView) navView.findViewById(R.id.navmail);
         imageView1=(ImageView) navView.findViewById(R.id.imageView);
 
-        FirebaseHanlder firebaseHanlder = new FirebaseHanlder();
+        //FirebaseHanlder firebaseHanlder = new FirebaseHanlder();
+        DatabaseReference rootRef = firebaseDatabase.getReference().child("Users");
+        rootRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot data: dataSnapshot.getChildren()){
+                    try{
+                        if (data.child("UId").getValue().toString().trim().equals(uid)) {
+                            hName.setText(data.child("SHname").getValue().toString().trim());
+                            navmail.setText(data.child("UEmail").getValue().toString().trim());
+                        }
+                    }catch (Exception e){ Log.d("nsmart", "error "+e); }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
 
 
 
@@ -146,7 +180,6 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
 
 
         }
-
 
 
 

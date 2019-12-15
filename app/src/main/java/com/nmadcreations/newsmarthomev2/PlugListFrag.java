@@ -22,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +43,11 @@ public class PlugListFrag extends Fragment{
     private FirebaseDatabase firebaseDatabase;
     private String uid="user01",homeName="home1";
 
+    public PlugListFrag(){
+
+    }
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +63,6 @@ public class PlugListFrag extends Fragment{
         mRecyclerView = view.findViewById(R.id.recyclerlist_plugFrag);
         mExampleList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance();
-
 
 
         DatabaseReference rootRef = firebaseDatabase.getReference().child("Users").child(uid);
@@ -132,10 +137,13 @@ public class PlugListFrag extends Fragment{
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
+        //String s = "room5";
+        //mAdapter.getFilter().filter(s.toString().trim());
     }
 
-
-
+    public void test1(String s){
+        Toast.makeText(getActivity(), ""+s, Toast.LENGTH_SHORT).show();
+    }
 
     ItemTouchHelper.SimpleCallback itemTouchhelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
         @Override

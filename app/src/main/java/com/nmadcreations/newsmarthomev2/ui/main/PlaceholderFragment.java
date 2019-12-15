@@ -89,12 +89,12 @@ public class PlaceholderFragment extends Fragment {
 
 
 
-        Intent intent = getActivity().getIntent();
-        String did = intent.getStringExtra("deviceIdQr");
-        String nickname = intent.getStringExtra("nickname");
-        if (did!=null){
-            insertItem(did,nickname);
-        }
+//        Intent intent = getActivity().getIntent();
+//        String did = intent.getStringExtra("deviceIdQr");
+//        String nickname = intent.getStringExtra("nickname");
+//        if (did!=null){
+//            insertItem(did,nickname);
+//        }
         //Toast.makeText(getActivity(),"fefefefefefefef", Toast.LENGTH_SHORT).show();
         return root;
     }
