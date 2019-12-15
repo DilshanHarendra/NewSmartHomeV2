@@ -107,7 +107,7 @@ public class NbulbListFrag extends Fragment {
     }
 
     public void createExampleList(String did, String t1, String t2){
-        mExampleList.add(new SingleDevice(did,R.drawable.ic_android,t1,t2));
+        mExampleList.add(new SingleDevice(did,R.drawable.nomalbulb,t1,t2));
     }
 
     public void buildRecycleView(){

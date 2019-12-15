@@ -43,9 +43,6 @@ public class PlugListFrag extends Fragment{
     private FirebaseDatabase firebaseDatabase;
     private String uid="user01",homeName="home1";
 
-    public PlugListFrag(){
-
-    }
 
 
     @Override
@@ -63,6 +60,16 @@ public class PlugListFrag extends Fragment{
         mRecyclerView = view.findViewById(R.id.recyclerlist_plugFrag);
         mExampleList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance();
+
+//        try {
+//            Bundle b = getArguments();
+//            String text = b.getString("sm").toString();
+//            Toast.makeText(getActivity(), ""+text, Toast.LENGTH_SHORT).show();
+//            Log.d("nsmart", "search : " + text);
+//        }catch (Exception e){
+//            Toast.makeText(getActivity(), "errrrrrrrror", Toast.LENGTH_SHORT).show();
+//            Log.d("nsmart","error : "+e.toString());
+//        }
 
 
         DatabaseReference rootRef = firebaseDatabase.getReference().child("Users").child(uid);
@@ -126,7 +133,7 @@ public class PlugListFrag extends Fragment{
     }
 
     public void createExampleList(String did, String t1, String t2){
-        mExampleList.add(new SingleDevice(did,R.drawable.ic_android,t1,t2));
+        mExampleList.add(new SingleDevice(did,R.drawable.smartplug,t1,t2));
     }
 
     public void buildRecycleView(){
