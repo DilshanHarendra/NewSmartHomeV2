@@ -46,11 +46,13 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     private FirebaseDatabase firebaseDatabase;
     private String uid="user01";
     private SearchView searchView;
+
 //--
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home);
+
         drawerLayout = findViewById(R.id.dlayout);
         vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -65,12 +67,17 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                RgbListFrag.search(query);
+                PlugListFrag.search(query);
+                NbulbListFrag.search(query);
                 return false;
             }
             @Override
             public boolean onQueryTextChange(String newText) {
                // plugListFrag.test1(newText);
-                Log.d("nsmart","Text: "+newText);
+                RgbListFrag.search(newText);
+                PlugListFrag.search(newText);
+                NbulbListFrag.search(newText);
                 return false;
             }
         });

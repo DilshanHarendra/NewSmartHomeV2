@@ -46,6 +46,7 @@ public class FirebaseHanlder {
         firebaseDatabase.getReference().child("Device").child(did).child("deviceName").setValue(name);
         firebaseDatabase.getReference().child("Device").child(did).child("deviceType").setValue(type);
         firebaseDatabase.getReference().child("Device").child(did).child("alarmId").setValue(getAlarmId());
+        firebaseDatabase.getReference().child("Device").child(did).child("alarmset").setValue("none");
         firebaseDatabase.getReference().child("Device").child(did).child("function").setValue("enargy");
         firebaseDatabase.getReference().child("Device").child(did).child("cHex").setValue("0");
         firebaseDatabase.getReference().child("Device").child(did).child("state").setValue("0");

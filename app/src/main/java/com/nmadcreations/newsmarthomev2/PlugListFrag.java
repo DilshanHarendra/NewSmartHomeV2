@@ -38,7 +38,7 @@ public class PlugListFrag extends Fragment{
 
     private ArrayList<SingleDevice> mExampleList;
     private RecyclerView mRecyclerView;
-    private DeviceAdapter mAdapter;
+    private static DeviceAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private FirebaseDatabase firebaseDatabase;
     private String uid="user01",homeName="home1";
@@ -109,6 +109,7 @@ public class PlugListFrag extends Fragment{
                     }
                 }
                 buildRecycleView();
+
             }
 
             @Override
@@ -122,7 +123,7 @@ public class PlugListFrag extends Fragment{
 
     public void removeItem(int position){
         mExampleList.remove(position);
-        mAdapter.notifyItemRemoved(position);
+        adapter.notifyItemRemoved(position);
     }
 
     public void createExampleList(String did, String t1, String t2){
@@ -133,9 +134,9 @@ public class PlugListFrag extends Fragment{
         new ItemTouchHelper(itemTouchhelperCallback).attachToRecyclerView(mRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new DeviceAdapter(mExampleList,getActivity());
+        adapter = new DeviceAdapter(mExampleList,getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(adapter);
 
         //String s = "room5";
         //mAdapter.getFilter().filter(s.toString().trim());
@@ -190,5 +191,17 @@ public class PlugListFrag extends Fragment{
         }
 
     };
+    public static void search(String word){
 
+        try {
+
+                adapter.getFilter().filter(word.trim());
+
+
+        }catch (Exception e){
+            Log.d("nsmart","Text: "+e);
+        }
+
+
+    }
 }

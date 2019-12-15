@@ -19,30 +19,48 @@
             android:textSize="24sp" />
         <RelativeLayout
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             >
 
             <Button
+                android:id="@+id/onoff"
+                android:layout_width="150dp"
+                android:text="On/Off"
+                android:layout_height="100dp" />
+
+            <Button
+                android:id="@+id/shedule"
+                android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@+id/changecolor"
+                android:layout_width="150dp"
+                android:text="Shedule"
+                android:layout_height="100dp" />
+
+            <Button
+                android:layout_below="@+id/onoff"
                 android:id="@+id/changecolor"
                 android:layout_width="150dp"
+                android:layout_marginTop="10dp"
                 android:text="Color"
                 android:layout_height="100dp" />
 
             <Button
+                android:layout_below="@+id/shedule"
                 android:id="@+id/enargy"
                 android:layout_marginLeft="40dp"
                 android:layout_toRightOf="@+id/changecolor"
                 android:layout_width="150dp"
                 android:text="Enargy"
+                android:layout_marginTop="10dp"
                 android:layout_height="100dp" />
 
             <Button
                 android:id="@+id/dance"
                 android:text="Dance"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/changecolor"
                 android:layout_width="150dp"
                 android:layout_height="100dp" />
@@ -51,7 +69,7 @@
                 android:layout_toRightOf="@+id/dance"
                 android:text="Party"
                 android:layout_below="@+id/enargy"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/party"
                 android:layout_marginLeft="40dp"
                 android:layout_width="150dp"
@@ -61,7 +79,7 @@
                 android:text="Read"
                 android:id="@+id/read"
                 android:layout_below="@+id/dance"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="150dp"
                 android:layout_height="100dp" />
 
@@ -71,7 +89,7 @@
                 android:layout_toRightOf="@+id/read"
                 android:layout_below="@+id/party"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="150dp"
                 android:layout_height="100dp" />
 

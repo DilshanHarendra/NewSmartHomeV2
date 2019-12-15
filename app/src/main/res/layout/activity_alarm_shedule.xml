@@ -37,19 +37,18 @@
 
 
             </TimePicker>
+
             <TextView
                 android:id="@+id/alarmset"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/altimePicker"
-                android:textColor="@color/newLetters"
-                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="Test"
-                />
+                android:textAlignment="center"
+                android:textSize="24sp" />
             <LinearLayout
                 android:layout_below="@+id/alarmset"
                 android:layout_marginTop="28dp"
@@ -62,34 +61,33 @@
 
 
                 >
+
                 <Button
                     android:id="@+id/AlarmCancel"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:textSize="18sp"
-                    android:text="@android:string/cancel"
-
-                    android:layout_weight="0.4"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="16dp"
+
                     android:layout_marginRight="8dp"
-                    android:textColor="@color/newLetters"
+                    android:layout_weight="0.4"
+                    android:text="@android:string/cancel"
+                    android:textSize="18sp"
 
                     />
+
                 <Button
                     android:id="@+id/AlarmOk"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:textSize="18sp"
-
-                    android:textColor="@color/newLetters"
-                    android:layout_weight="0.4"
-                    android:text="Ok"
                     android:layout_alignParentRight="true"
 
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="16dp"
-                    />
+                    android:layout_weight="0.4"
+
+                    android:text="Ok"
+                    android:textSize="18sp" />
             </LinearLayout>
         </RelativeLayout>
 

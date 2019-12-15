@@ -31,10 +31,11 @@ public class NbulbListFrag extends Fragment {
 
     private ArrayList<SingleDevice> mExampleList;
     private RecyclerView mRecyclerView;
-    private DeviceAdapter mAdapter;
+    private static DeviceAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private FirebaseDatabase firebaseDatabase;
     private String uid="user01",homeName="home1";
+    private static Boolean isSearch=true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,7 +104,7 @@ public class NbulbListFrag extends Fragment {
     }
     public void removeItem(int position){
         mExampleList.remove(position);
-        mAdapter.notifyItemRemoved(position);
+        adapter.notifyItemRemoved(position);
     }
 
     public void createExampleList(String did, String t1, String t2){
@@ -114,9 +115,9 @@ public class NbulbListFrag extends Fragment {
         new ItemTouchHelper(itemTouchhelperCallback).attachToRecyclerView(mRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new DeviceAdapter(mExampleList,getActivity());
+        adapter = new DeviceAdapter(mExampleList,getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(adapter);
 
     }
 
@@ -169,6 +170,18 @@ public class NbulbListFrag extends Fragment {
         }
 
     };
+    public static void search(String word){
 
+        try {
+            if (isSearch){
+                adapter.getFilter().filter(word.trim());
+            }
+
+        }catch (Exception e){
+            Log.d("nsmart","Text: "+e);
+        }
+
+
+    }
 
 }
