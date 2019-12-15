@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangeColor"></activity>
+        <activity android:name=".AlarmShedule"></activity>
+        <activity android:name=".ChangeColor" />
         <activity android:name=".ConnectToWifi" />
         <activity android:name=".BPSubMenu" />
         <activity android:name=".SubMenuList" />

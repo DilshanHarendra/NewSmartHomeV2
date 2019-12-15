@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AlarmShedule">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="36sp"
+                android:text="Alarm"
+
+                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                />
+            <TimePicker
+                android:id="@+id/altimePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/textView2"
+                android:layout_marginTop="45dp"
+                android:textAlignment="center"
+
+
+                >
+
+
+            </TimePicker>
+            <TextView
+                android:id="@+id/alarmset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/altimePicker"
+                android:textColor="@color/newLetters"
+                android:textAlignment="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Test"
+                />
+            <LinearLayout
+                android:layout_below="@+id/alarmset"
+                android:layout_marginTop="28dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+
+
+
+                >
+                <Button
+                    android:id="@+id/AlarmCancel"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:textSize="18sp"
+                    android:text="@android:string/cancel"
+
+                    android:layout_weight="0.4"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/newLetters"
+
+                    />
+                <Button
+                    android:id="@+id/AlarmOk"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:textSize="18sp"
+
+                    android:textColor="@color/newLetters"
+                    android:layout_weight="0.4"
+                    android:text="Ok"
+                    android:layout_alignParentRight="true"
+
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="16dp"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
