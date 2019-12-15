@@ -235,11 +235,8 @@ public class RgbListFrag extends Fragment {
 public static void search(String word){
 
     try {
-
-            adapter.getFilter().filter(word.trim());
-
-
-    }catch (Exception e){
+        adapter.getFilter().filter(word.trim());
+        }catch (Exception e){
         Log.d("nsmart","Text: "+e);
     }
 
