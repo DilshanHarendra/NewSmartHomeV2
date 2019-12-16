@@ -48,6 +48,14 @@ public class CreateSmartHomeFrag2 extends Fragment {
         textView=view.findViewById(R.id.texterror);
         sharedPreferences = this.getActivity().getSharedPreferences("smartHome",getContext().MODE_PRIVATE);
 
+        try {
+            uid=getActivity().getIntent().getStringExtra("uid");
+        }catch (Exception e){
+
+        }
+
+
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

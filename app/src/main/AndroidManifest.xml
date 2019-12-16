@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddUserQr"></activity>
+        <activity android:name=".Agrement"></activity>
+        <activity android:name=".Login" />
+        <activity android:name=".AddUserQr" />
         <activity android:name=".CreateSmartHome" />
         <activity android:name=".AlarmShedule" />
         <activity android:name=".ChangeColor" />
