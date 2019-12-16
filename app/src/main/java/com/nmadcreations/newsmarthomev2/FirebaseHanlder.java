@@ -61,7 +61,6 @@ public class FirebaseHanlder {
         firebaseDatabase.getReference().child("Device").child(did).child("deviceName").setValue(name);
         firebaseDatabase.getReference().child("Device").child(did).child("deviceType").setValue(type);
         firebaseDatabase.getReference().child("Device").child(did).child("state").setValue("0");
-
     }
 
     public void addBlubDevice(String did,String name,String type){
@@ -70,6 +69,13 @@ public class FirebaseHanlder {
         firebaseDatabase.getReference().child("Device").child(did).child("deviceName").setValue(name);
         firebaseDatabase.getReference().child("Device").child(did).child("deviceType").setValue(type);
         firebaseDatabase.getReference().child("Device").child(did).child("function").setValue("enargy");
+        firebaseDatabase.getReference().child("Device").child(did).child("state").setValue("0");
+    }
+    public void addGasDevice(String did,String name,String type){
+        firebaseDatabase.getReference().child("Device").child(did).child("SHname").setValue(homeName);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceID").setValue(did);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceName").setValue(name);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceType").setValue(type);
         firebaseDatabase.getReference().child("Device").child(did).child("state").setValue("0");
 
     }

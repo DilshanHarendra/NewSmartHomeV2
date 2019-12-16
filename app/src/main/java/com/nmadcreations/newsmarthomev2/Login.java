@@ -66,7 +66,7 @@ public class Login extends AppCompatActivity {
         } catch (Exception e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.d("nsmart", "signInResult:failed code=" + e);
+            Log.d("nsmart", "signInResult:failed code= " + e);
 
         }
     }

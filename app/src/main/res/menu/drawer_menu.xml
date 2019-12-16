@@ -4,21 +4,26 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_android"
-            android:title="Home" />
-        <item
-            android:id="@+id/nav_changePsw"
-            android:icon="@drawable/ic_android"
-            android:title="Change Password" />
+            android:id="@+id/nav_addnewDevice"
+            android:icon="@drawable/ic_add_circle"
+            android:title="Add Device" />
         <item
             android:id="@+id/nav_addUser"
-            android:icon="@drawable/ic_android"
+            android:icon="@drawable/ic_person_add"
             android:title="Add User" />
         <item
+            android:id="@+id/nav_wifiConnect"
+            android:icon="@drawable/ic_wifi"
+            android:title="Wifi Config" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+        <item
             android:id="@+id/nav_singout"
-            android:icon="@drawable/ic_android"
+            android:icon="@drawable/ic_singout"
             android:title="Sing Out" />
         <!--<item-->
             <!--android:id="@+id/nav_testing"-->
@@ -26,10 +31,11 @@
             <!--android:title="testing" />-->
     </group>
 
-    <!--<item android:title="Development only">-->
+    <!--<item android:title="Development only"-->
+        <!--android:id="@+id/nav_title">-->
         <!--<menu>-->
             <!--<item-->
-                <!--android:id="@+id/nav_rgbdb"-->
+                <!--android:id="@+id/nav_rg"-->
                 <!--android:icon="@drawable/ic_delete"-->
                 <!--android:title="RGB_DB" />-->
             <!--<item-->

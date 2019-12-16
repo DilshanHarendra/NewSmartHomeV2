@@ -132,11 +132,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
                 Log.d("nsmart","clicked "+currentItem.getmDeviceId().toString());
 
                 if (currentItem.getmDeviceId().startsWith("S!-RGB")){
-                 mcontext.startActivity( new Intent(mcontext, SubMenuList.class).putExtra("Id",currentItem.getmDeviceId().toString().trim()));
+                    mcontext.startActivity( new Intent(mcontext, SubMenuList.class).putExtra("Id",currentItem.getmDeviceId().toString().trim()));
                 }else if(currentItem.getmDeviceId().startsWith("S!-BLB")){
                     mcontext.startActivity( new Intent(mcontext, BPSubMenu.class).putExtra("Id",currentItem.getmDeviceId().toString().trim()));
                 }else if (currentItem.getmDeviceId().startsWith("S!-PLG")){
                     mcontext.startActivity( new Intent(mcontext, BPSubMenu.class).putExtra("Id",currentItem.getmDeviceId().toString().trim()));
+                }else if (currentItem.getmDeviceId().startsWith("S!-GAS")){
+                    mcontext.startActivity( new Intent(mcontext, GasController.class).putExtra("Id",currentItem.getmDeviceId().toString().trim()));
                 }
 
             }

@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.InputType;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
     private FirebaseDatabase firebaseDatabase;
 
     private Vibrator vibrator;
+    private int availableStatus = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +141,7 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
         final EditText nickname = new EditText(QrReader.this);
 
         if (scanResults.startsWith("S!")) {
-            if(checkavailability(scanResults.toString())==0) {
+            if(checkavailability(scanResults.toString())) {
                 vibrator.vibrate(100);
                 builder.setTitle("Enter device name:");
                 //builder.setMessage(scanResults);
@@ -172,7 +174,7 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
             }else {
                 vibrator.vibrate(500);
                 builder.setTitle("Error!..");
-                builder.setMessage("This device already have in your device list!");
+                builder.setMessage("This device already have in your device list or Network error");
                 builder.setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -215,34 +217,28 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
         alert.show();
     }
 
-    private int checkavailability(final String did){
-
-        return 0;
-//        final int[] val = {0};
-//        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Device");
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                    try{
-//                        if (snapshot.child("deviceID").getValue().toString().trim().equals(did)){
-//                           val[0] = 1;
-//                        }else {
-//                            val[0] = 0;
-//                        }
-//                    }catch (Exception e){
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//        return val[0];
+    private boolean checkavailability(final String did){
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Device");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(did)){
+                    Log.d("nsmart","Qr: true" );
+                    availableStatus = 1;
+                }else {
+                    Log.d("nsmart","Qr: false" );
+                    availableStatus = 0;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        if (availableStatus==0){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     private void addDevicetoFirebase(String qrId, String nickName){
@@ -253,6 +249,8 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
             firebaseHanlder.addPlugDevice(qrId,nickName,"PLUG");
         }else if (qrId.startsWith("S!-BLB")){
             firebaseHanlder.addBlubDevice(qrId,nickName,"BULB");
+        }else if (qrId.startsWith("S!-GAS")){
+            firebaseHanlder.addGasDevice(qrId,nickName,"GAS");
         }
     }
 

@@ -1,6 +1,7 @@
 package com.nmadcreations.newsmarthomev2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -49,7 +50,7 @@ public   class CreateSmartHomeFrag3 extends Fragment {
             @Override
             public void onClick(View view) {
                 if (scanqr.isChecked()){
-
+                    startActivity(new Intent(getActivity(),QrReader.class));
                 }else if (manual.isChecked()){
                     fragment = new CreateSmartHomeFrag4();
                     fragmentTransaction.replace(R.id.fragmentcreate,fragment);

@@ -65,17 +65,6 @@ public class PlugListFrag extends Fragment{
         mExampleList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-//        try {
-//            Bundle b = getArguments();
-//            String text = b.getString("sm").toString();
-//            Toast.makeText(getActivity(), ""+text, Toast.LENGTH_SHORT).show();
-//            Log.d("nsmart", "search : " + text);
-//        }catch (Exception e){
-//            Toast.makeText(getActivity(), "errrrrrrrror", Toast.LENGTH_SHORT).show();
-//            Log.d("nsmart","error : "+e.toString());
-//        }
-
-
         sharedPreferences = getContext().getSharedPreferences("smartHome",getContext().MODE_PRIVATE);
         homeName=sharedPreferences.getString("homeName","");
 

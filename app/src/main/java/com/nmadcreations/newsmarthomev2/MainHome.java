@@ -7,6 +7,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -52,6 +58,8 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     private String uid="user01";
     private SearchView searchView;
 
+    private GoogleSignInClient mGoogleSignInClient;
+
 
 //--
     @Override
@@ -67,6 +75,12 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+
 
         //PlugListFrag plugListFrag = new PlugListFrag();
         searchView = findViewById(R.id.search_view);
@@ -76,6 +90,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
                 RgbListFrag.search(query);
                 PlugListFrag.search(query);
                 NbulbListFrag.search(query);
+                GasListFrag.search(query);
                 return false;
             }
             @Override
@@ -84,6 +99,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
                 RgbListFrag.search(newText);
                 PlugListFrag.search(newText);
                 NbulbListFrag.search(newText);
+                GasListFrag.search(newText);
                 return false;
             }
         });
@@ -95,6 +111,12 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         Menu nav_Menu = navigationView.getMenu();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (Build.VERSION.SDK_INT>=21){
+            nav_Menu.findItem(R.id.nav_addnewDevice).setVisible(false);
+            nav_Menu.findItem(R.id.nav_wifiConnect).setVisible(false);
+            nav_Menu.findItem(R.id.nav_settings).setVisible(false);
+        }
 
         View navView = navigationView.getHeaderView(0);
         hName = (TextView) navView.findViewById(R.id.userName);
@@ -212,17 +234,18 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-        if (id == R.id.nav_home) {
-
-            Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_changePsw) {
-
-        } else if (id == R.id.nav_singout) {
-
-        }else if (id == R.id.nav_addUser) {
+        if (id == R.id.nav_addnewDevice) {
+            startActivity(new Intent(MainHome.this,QrReader.class));
+        } else if (id == R.id.nav_addUser) {
             Toast.makeText(this, "Add User", Toast.LENGTH_SHORT).show();
-startActivity( new Intent(this,AddUserQr.class));
-finish();
+            startActivity( new Intent(this,AddUserQr.class));
+            finish();
+        }else if (id == R.id.nav_wifiConnect){
+            startActivity(new Intent(MainHome.this,ConnectToWifi.class));
+        }else if (id == R.id.nav_settings){
+
+        }else if (id == R.id.nav_singout){
+            singout();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -246,6 +269,17 @@ finish();
     }
 
 
+    private void singout(){
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(MainHome.this, "Singout Done", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        startActivity(new Intent(MainHome.this,Login.class));
+        finish();
+    }
 
 
 
