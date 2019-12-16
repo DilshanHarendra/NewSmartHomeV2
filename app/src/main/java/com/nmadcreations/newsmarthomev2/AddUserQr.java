@@ -19,7 +19,7 @@ import androidmads.library.qrgenearator.QRGEncoder;
 public class AddUserQr extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
-    private String homeName;
+    private String homeName,pass;
     private QRGEncoder qrgEncoder;
     private Bitmap bitmap;
     private ImageView imageView;
@@ -31,6 +31,7 @@ public class AddUserQr extends AppCompatActivity {
         imageView=findViewById(R.id.showqr);
         sharedPreferences = this.getSharedPreferences("smartHome",this.MODE_PRIVATE);
         homeName=sharedPreferences.getString("homeName","");
+        pass=sharedPreferences.getString("homePassword","");
         WindowManager manager =(WindowManager)this.getSystemService(Context.WINDOW_SERVICE);
         Display display =manager.getDefaultDisplay();
         Point point = new Point();
@@ -39,7 +40,7 @@ public class AddUserQr extends AppCompatActivity {
         int height=point.y;
         int small=width<height ? width:height;
         small=small*3/4;
-        qrgEncoder = new QRGEncoder(homeName,null, QRGContents.Type.TEXT,small);
+        qrgEncoder = new QRGEncoder(homeName+"/"+pass,null, QRGContents.Type.TEXT,small);
         try {
             bitmap=qrgEncoder.encodeAsBitmap();
             imageView.setImageBitmap(bitmap);
