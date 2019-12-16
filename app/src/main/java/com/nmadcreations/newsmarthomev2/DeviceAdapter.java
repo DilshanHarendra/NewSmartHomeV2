@@ -54,6 +54,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
         public ImageView mremoveDevice;
         public ToggleButton switch1;
 
+        public ImageView deleteIcon, editIcon;
+        public TextView edit_text, delete_text;
+
 
 
 
@@ -70,6 +73,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
             type = itemView.findViewById(R.id.textView2);
             mremoveDevice = itemView.findViewById(R.id.deviceRemove);
             switch1 = itemView.findViewById(R.id.switch1);
+
+            deleteIcon = itemView.findViewById(R.id.delete_icon);
+            editIcon = itemView.findViewById(R.id.edit_Icon);
+            edit_text = itemView.findViewById(R.id.text_edit);
+            delete_text = itemView.findViewById(R.id.text_delete);
 
             view_forground = itemView.findViewById(R.id.view_forground);
             view_background = itemView.findViewById(R.id.view_background);

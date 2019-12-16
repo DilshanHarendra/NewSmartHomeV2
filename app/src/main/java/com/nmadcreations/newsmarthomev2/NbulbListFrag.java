@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -115,11 +116,10 @@ public class NbulbListFrag extends Fragment {
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
-
         @Override
         public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
             //Log.d("nsmart","dir : "+direction);
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             if (direction == ItemTouchHelper.LEFT) {
                 //builder.setIcon(R.drawable.delete);
                 builder.setTitle("Device Remove");
@@ -146,7 +146,12 @@ public class NbulbListFrag extends Fragment {
                 builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        firebaseDatabase.getReference().child("Device").child(viewHolder.itemView.getTag().toString().trim()).child("deviceName").setValue(nickname.getText().toString());
+                        if (nickname.getText().length()>=4) {
+                            firebaseDatabase.getReference().child("Device").child(viewHolder.itemView.getTag().toString().trim()).child("deviceName").setValue(nickname.getText().toString());
+                        }else {
+                            Toast.makeText(getActivity(), "Please enter at least 4 letters nickname to change your nickname", Toast.LENGTH_LONG).show();
+                            buildRecycleView();
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -155,7 +160,6 @@ public class NbulbListFrag extends Fragment {
                         buildRecycleView();
                     }
                 });
-
             }
             builder.setCancelable(false);
             AlertDialog alert = builder.create();
@@ -165,19 +169,28 @@ public class NbulbListFrag extends Fragment {
         public void onChildDraw(Canvas c, RecyclerView recyclerView,
                                 RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                 int actionState, boolean isCurrentlyActive) {
-            if (dX<=-10) {
+            if (dX<=-10 || dX>=10) {
                 ((DeviceAdapter.ExampleViewHolder) viewHolder).view_background.setVisibility(View.VISIBLE);
+                if (dX<=-10){
+                    ((DeviceAdapter.ExampleViewHolder) viewHolder).edit_text.setVisibility(View.INVISIBLE);
+                    ((DeviceAdapter.ExampleViewHolder) viewHolder).editIcon.setVisibility(View.INVISIBLE);
+                    ((DeviceAdapter.ExampleViewHolder) viewHolder).delete_text.setVisibility(View.VISIBLE);
+                    ((DeviceAdapter.ExampleViewHolder) viewHolder).deleteIcon.setVisibility(View.VISIBLE);
+                }else if (dX>=10){
+                    ((DeviceAdapter.ExampleViewHolder) viewHolder).delete_text.setVisibility(View.INVISIBLE);
+                    ((DeviceAdapter.ExampleViewHolder) viewHolder).deleteIcon.setVisibility(View.INVISIBLE);
+                    ((DeviceAdapter.ExampleViewHolder) viewHolder).edit_text.setVisibility(View.VISIBLE);
+                    ((DeviceAdapter.ExampleViewHolder) viewHolder).editIcon.setVisibility(View.VISIBLE);
+                }
             }else {
                 ((DeviceAdapter.ExampleViewHolder) viewHolder).view_background.setVisibility(View.GONE);
             }
             final View foregroundView = ((DeviceAdapter.ExampleViewHolder) viewHolder).view_forground;
             getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
                     actionState, isCurrentlyActive);
-
-
         }
-
     };
+
     public static void search(String word){
 
         try {

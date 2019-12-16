@@ -11,20 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<ImageView-->
-            <!--android:id="@+id/editIcon"-->
-            <!--android:layout_width="40dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:src="@drawable/ic_mode_edit"-->
-            <!--/>-->
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_toRightOf="@id/editIcon"-->
-            <!--android:text="EDIT"-->
-            <!--android:textSize="13dp" />-->
+        <ImageView
+            android:id="@+id/edit_Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_mode_edit"
+            />
+        <TextView
+            android:id="@+id/text_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/edit_Icon"
+            android:text="EDIT NICKNAME"
+            android:textSize="13dp" />
 
         <ImageView
             android:id="@+id/delete_icon"
@@ -36,6 +39,7 @@
             android:src="@drawable/ic_delete" />
 
         <TextView
+            android:id="@+id/text_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
