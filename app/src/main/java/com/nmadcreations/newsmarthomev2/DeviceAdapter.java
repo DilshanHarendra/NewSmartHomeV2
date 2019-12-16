@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -86,14 +87,36 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExampleViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ExampleViewHolder holder, final int position) {
 
         final SingleDevice currentItem = mExampleList.get(position);
         holder.mImageView.setImageResource(currentItem.getmImageResource());
         holder.type.setText(currentItem.gettype());
         holder.name.setText(currentItem.getname());
 
-        holder.itemView.setTag(position);
+        holder.itemView.setTag(currentItem.getmDeviceId().toString());
+
+        FirebaseDatabase.getInstance().getReference().child("Device").child(currentItem.getmDeviceId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("state").getValue()==null){
+                   // FirebaseDatabase.getInstance().getReference().child("Device").child(currentItem.getmDeviceId()).child("state").setValue("0");
+                }else{
+                    if (dataSnapshot.child("state").getValue().equals("0")){
+                        holder.switch1.setBackgroundResource(R.drawable.offbutton);
+                        holder.switch1.setChecked(false);
+                        //state=0;
+                    }else{
+                        holder.switch1.setBackgroundResource(R.drawable.onbutton);
+                        holder.switch1.setChecked(true);
+                        //state=1;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,12 +138,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ExampleVie
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b){
-                    Toast.makeText(mcontext, "fefefefe", Toast.LENGTH_SHORT).show();
                     Log.d("nsmart","on "+currentItem.getmDeviceId().toString());
                     compoundButton.setBackgroundResource(R.drawable.onbutton);
+                    FirebaseDatabase.getInstance().getReference().child("Device").child(currentItem.getmDeviceId()).child("state").setValue("1");
                 }else {
                     Log.d("nsmart","off "+currentItem.getmDeviceId().toString());
                     compoundButton.setBackgroundResource(R.drawable.offbutton);
+                    FirebaseDatabase.getInstance().getReference().child("Device").child(currentItem.getmDeviceId()).child("state").setValue("0");
                 }
             }
         });

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -43,9 +45,6 @@ public class PlugListFrag extends Fragment{
     private FirebaseDatabase firebaseDatabase;
     private String uid="user01",homeName="home1";
 
-    public PlugListFrag(){
-
-    }
 
 
     @Override
@@ -63,6 +62,16 @@ public class PlugListFrag extends Fragment{
         mRecyclerView = view.findViewById(R.id.recyclerlist_plugFrag);
         mExampleList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance();
+
+//        try {
+//            Bundle b = getArguments();
+//            String text = b.getString("sm").toString();
+//            Toast.makeText(getActivity(), ""+text, Toast.LENGTH_SHORT).show();
+//            Log.d("nsmart", "search : " + text);
+//        }catch (Exception e){
+//            Toast.makeText(getActivity(), "errrrrrrrror", Toast.LENGTH_SHORT).show();
+//            Log.d("nsmart","error : "+e.toString());
+//        }
 
 
         DatabaseReference rootRef = firebaseDatabase.getReference().child("Users").child(uid);
@@ -127,7 +136,7 @@ public class PlugListFrag extends Fragment{
     }
 
     public void createExampleList(String did, String t1, String t2){
-        mExampleList.add(new SingleDevice(did,R.drawable.ic_android,t1,t2));
+        mExampleList.add(new SingleDevice(did,R.drawable.smartplug,t1,t2));
     }
 
     public void buildRecycleView(){
@@ -146,7 +155,7 @@ public class PlugListFrag extends Fragment{
         Toast.makeText(getActivity(), ""+s, Toast.LENGTH_SHORT).show();
     }
 
-    ItemTouchHelper.SimpleCallback itemTouchhelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+    ItemTouchHelper.SimpleCallback itemTouchhelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -154,22 +163,45 @@ public class PlugListFrag extends Fragment{
 
         @Override
         public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
+            //Log.d("nsmart","dir : "+direction);
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    removeItem((Integer) viewHolder.itemView.getTag());
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //  refresh();
-                }
-            });
-            //builder.setIcon(R.drawable.delete);
-            builder.setTitle("Device Remove");
-            builder.setMessage("If you want to really delete your device. All settings will be removed can not undo.!");
+            if (direction == ItemTouchHelper.LEFT) {
+                //builder.setIcon(R.drawable.delete);
+                builder.setTitle("Device Remove");
+                builder.setMessage("If you want to really delete your device. All settings will be removed can not undo.!");
+                builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //removeItem((Integer) viewHolder.itemView.getTag());
+                        firebaseDatabase.getReference().child("Device").child(viewHolder.itemView.getTag().toString().trim()).removeValue();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        buildRecycleView();
+                    }
+                });
+            }else {
+                final EditText nickname = new EditText(getActivity());
+                builder.setTitle("Enter new device name:");
+                nickname.setHint("Nickname:");
+                nickname.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(nickname);
+                builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        firebaseDatabase.getReference().child("Device").child(viewHolder.itemView.getTag().toString().trim()).child("deviceName").setValue(nickname.getText().toString());
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        buildRecycleView();
+                    }
+                });
+
+            }
             builder.setCancelable(false);
             AlertDialog alert = builder.create();
             alert.show();

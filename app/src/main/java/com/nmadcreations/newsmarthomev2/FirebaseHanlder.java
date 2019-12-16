@@ -38,10 +38,10 @@ public class FirebaseHanlder {
 
     public void createHome(String homeid){
         firebaseDatabase.getReference().child("SmartHome").setValue(homeid);
-
-
     }
-    public void addDevice(String did,String name,String type){
+
+    public void addRgbDevice(String did,String name,String type){
+        firebaseDatabase.getReference().child("Device").child(did).child("SHname").setValue(homeName);
         firebaseDatabase.getReference().child("Device").child(did).child("deviceID").setValue(did);
         firebaseDatabase.getReference().child("Device").child(did).child("deviceName").setValue(name);
         firebaseDatabase.getReference().child("Device").child(did).child("deviceType").setValue(type);
@@ -53,6 +53,24 @@ public class FirebaseHanlder {
         firebaseDatabase.getReference().child("Device").child(did).child("cR").setValue("0");
         firebaseDatabase.getReference().child("Device").child(did).child("cG").setValue("0");
         firebaseDatabase.getReference().child("Device").child(did).child("cB").setValue("0");
+    }
+
+    public void addPlugDevice(String did,String name,String type){
+        firebaseDatabase.getReference().child("Device").child(did).child("SHname").setValue(homeName);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceID").setValue(did);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceName").setValue(name);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceType").setValue(type);
+        firebaseDatabase.getReference().child("Device").child(did).child("state").setValue("0");
+
+    }
+
+    public void addBlubDevice(String did,String name,String type){
+        firebaseDatabase.getReference().child("Device").child(did).child("SHname").setValue(homeName);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceID").setValue(did);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceName").setValue(name);
+        firebaseDatabase.getReference().child("Device").child(did).child("deviceType").setValue(type);
+        firebaseDatabase.getReference().child("Device").child(did).child("function").setValue("enargy");
+        firebaseDatabase.getReference().child("Device").child(did).child("state").setValue("0");
 
     }
 

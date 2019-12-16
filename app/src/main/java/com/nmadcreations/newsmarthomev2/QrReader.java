@@ -1,5 +1,6 @@
 package com.nmadcreations.newsmarthomev2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -15,6 +16,11 @@ import android.text.InputType;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -27,6 +33,8 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
 
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
+    private FirebaseHanlder firebaseHanlder;
+    private FirebaseDatabase firebaseDatabase;
 
     private Vibrator vibrator;
 
@@ -35,6 +43,8 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
         super.onCreate(savedInstanceState);
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (checkPermission()){
@@ -145,8 +155,9 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
                         if (nn.equals("")) {
                             nn = "My Device";
                         }
-                        intent.putExtra("deviceIdQr", deviceId);
-                        intent.putExtra("nickname", nn);
+//                        intent.putExtra("deviceIdQr", deviceId);
+//                        intent.putExtra("nickname", nn);
+                        addDevicetoFirebase(deviceId,nn);
                         onStop();
                         startActivity(intent);
                         finish();
@@ -204,8 +215,45 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
         alert.show();
     }
 
-    private int checkavailability(String s){
+    private int checkavailability(final String did){
+
         return 0;
+//        final int[] val = {0};
+//        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Device");
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+//                    try{
+//                        if (snapshot.child("deviceID").getValue().toString().trim().equals(did)){
+//                           val[0] = 1;
+//                        }else {
+//                            val[0] = 0;
+//                        }
+//                    }catch (Exception e){
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//        return val[0];
+    }
+
+    private void addDevicetoFirebase(String qrId, String nickName){
+        firebaseHanlder = new FirebaseHanlder();
+        if (qrId.startsWith("S!-RGB")){
+            firebaseHanlder.addRgbDevice(qrId,nickName,"RGB");
+        }else if (qrId.startsWith("S!-PLG")){
+            firebaseHanlder.addPlugDevice(qrId,nickName,"PLUG");
+        }else if (qrId.startsWith("S!-BLB")){
+            firebaseHanlder.addBlubDevice(qrId,nickName,"BULB");
+        }
     }
 
 }
