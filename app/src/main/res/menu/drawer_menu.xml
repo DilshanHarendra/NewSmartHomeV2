@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_android"
             android:title="Change Password" />
         <item
+            android:id="@+id/nav_addUser"
+            android:icon="@drawable/ic_android"
+            android:title="Add User" />
+        <item
             android:id="@+id/nav_singout"
             android:icon="@drawable/ic_android"
             android:title="Sing Out" />

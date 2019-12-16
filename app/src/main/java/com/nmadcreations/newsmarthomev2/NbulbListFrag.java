@@ -3,6 +3,7 @@ package com.nmadcreations.newsmarthomev2;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,8 +37,9 @@ public class NbulbListFrag extends Fragment {
     private static DeviceAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private FirebaseDatabase firebaseDatabase;
-    private String uid="user01",homeName="home1";
+    private String uid="user01",homeName=null;
     private static Boolean isSearch=true;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,27 +51,8 @@ public class NbulbListFrag extends Fragment {
         mExampleList = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference rootRef = firebaseDatabase.getReference().child("Users").child(uid);
-        rootRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data: dataSnapshot.getChildren()){
-                    try{
-                        if (data.getKey().equals("SHname")){
-                       //     Log.d("nsmart", "home name "+data.getValue());
-                            homeName=data.getValue().toString();
-                            break;
-                        }
-                    }catch (Exception e){
-                      //      Log.d("nsmart", "error "+e);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        sharedPreferences = getContext().getSharedPreferences("smartHome",getContext().MODE_PRIVATE);
+        homeName=sharedPreferences.getString("homeName","");
 
 
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("Device");

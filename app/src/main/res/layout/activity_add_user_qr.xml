@@ -4,21 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09EBC4"
-    tools:context=".CreateSmartHome">
+    tools:context=".AddUserQr">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
 
-        <fragment
-            android:id="@+id/fragmentcreate"
-            android:name="com.nmadcreations.newsmarthomev2.CreateSmartHomeFrag1"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+
+    />
+
+        <ImageView
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            tools:layout_editor_absoluteX="136dp"
-            tools:layout_editor_absoluteY="279dp" />
+            android:id="@+id/showqr"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:src="@tools:sample/avatars" />
+
+
     </RelativeLayout>
+
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

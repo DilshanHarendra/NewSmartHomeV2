@@ -3,6 +3,7 @@ package com.nmadcreations.newsmarthomev2;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,61 +40,13 @@ public class RgbListFrag extends Fragment {
     private static DeviceAdapter adapter;
     private   RecyclerView.LayoutManager mLayoutManager;
     private FirebaseDatabase firebaseDatabase;
-    private String uid="user01",homeName="home1";
+    private String uid="user01",homeName=null;
+    private SharedPreferences sharedPreferences;
 
 
 
     public RgbListFrag(){
-        singeldevices = new ArrayList<>();
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference rootRef = firebaseDatabase.getReference().child("Users").child(uid);
-        rootRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data: dataSnapshot.getChildren()){
-                    try{
-                        if (data.getKey().equals("SHname")){
-                            //     Log.d("nsmart", "home name "+data.getValue());
-                            homeName=data.getValue().toString();
-                            break;
-                        }
-                    }catch (Exception e){
-                        //   Log.d("nsmart", "error "+e);
-                    }
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Device");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                singeldevices.clear();
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    try {
-                        if (snapshot.child("SHname").getValue().toString().trim().equals(homeName)) {
-                            if (snapshot.child("deviceType").getValue().toString().trim().equals("RGB")) {
-
-                                singeldevices.add (new SingleDevice( snapshot.child("deviceID").getValue().toString(),R.drawable.ic_android, snapshot.child("deviceType").getValue().toString(), snapshot.child("deviceName").getValue().toString()));
-                                //         Log.d("nsmart", "values| " + snapshot.child("deviceType").getValue().toString() + " - " + snapshot.child("deviceID").getValue().toString());
-                            }
-                        }
-                    }catch (Exception e){
-                        //     Log.d("nsmart", "error "+e);
-                    }
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
 
     }
 
@@ -106,7 +59,11 @@ public class RgbListFrag extends Fragment {
         mRecyclerView = view.findViewById(R.id.recyclerlist_rgbFrag);
         singeldevices = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference rootRef = firebaseDatabase.getReference().child("Users").child(uid);
+
+        sharedPreferences = getContext().getSharedPreferences("smartHome",getContext().MODE_PRIVATE);
+        homeName=sharedPreferences.getString("homeName","");
+
+     /*   DatabaseReference rootRef = firebaseDatabase.getReference().child("Users").child(uid);
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -126,7 +83,7 @@ public class RgbListFrag extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
+*/
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("Device");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

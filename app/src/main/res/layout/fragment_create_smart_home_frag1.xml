@@ -20,14 +20,14 @@
             android:layout_marginTop="30dp">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/existone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="I have already Create a SmartHome" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/newone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -47,7 +47,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/next"
+            android:id="@+id/createnext1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rgroup"

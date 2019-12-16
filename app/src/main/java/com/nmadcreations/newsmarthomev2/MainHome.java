@@ -2,6 +2,8 @@ package com.nmadcreations.newsmarthomev2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -36,6 +38,9 @@ import com.nmadcreations.newsmarthomev2.ui.main.SectionsPagerAdapter;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -46,6 +51,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     private FirebaseDatabase firebaseDatabase;
     private String uid="user01";
     private SearchView searchView;
+
 
 //--
     @Override
@@ -213,6 +219,10 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
 
         } else if (id == R.id.nav_singout) {
 
+        }else if (id == R.id.nav_addUser) {
+            Toast.makeText(this, "Add User", Toast.LENGTH_SHORT).show();
+startActivity( new Intent(this,AddUserQr.class));
+finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -234,4 +244,9 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     public  void goToSunMenuList(String id){
         startActivity( new Intent(this,SubMenuList.class));
     }
+
+
+
+
+
 }

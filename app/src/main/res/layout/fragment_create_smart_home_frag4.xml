@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateSmartHomeFrag2">
+    tools:context=".CreateSmartHomeFrag4">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FF0032">
+        android:background="#BB00FF">
 
         <TextView
-            android:id="@+id/texterror"
+            android:id="@+id/texterrormanual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
@@ -22,22 +22,22 @@
             />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textView5manual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/texterror"
-            android:text="Enter Name for your SmartHome"
+            android:layout_below="@+id/texterrormanual"
+            android:text="Enter SmartHome Name"
             android:textAlignment="center" />
 
 
 
         <EditText
-            android:id="@+id/ghomename"
+            android:id="@+id/ghomenamemanual"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView5"
+            android:layout_below="@+id/textView5manual"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:ems="10"
@@ -48,20 +48,20 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textView6manual"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ghomename"
+            android:layout_below="@+id/ghomenamemanual"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:text="Enter Passowrd"
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/gpassword1"
+            android:id="@+id/gpassword1manual"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView6"
+            android:layout_below="@+id/textView6manual"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:hint="Password"
@@ -70,44 +70,22 @@
 
             android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/gpassword1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="Re-Enter Passowrd"
-            android:textAlignment="center" />
-
-        <EditText
-            android:id="@+id/gpassword2"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView7"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingLeft="12dp"
-            android:textAlignment="center" />
 
         <Button
-            android:id="@+id/createnewback"
+            android:id="@+id/createnewbackmanula"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/gpassword2"
+            android:layout_below="@+id/gpassword1manual"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
             android:text="back" />
 
         <Button
-            android:id="@+id/createnewnext"
+            android:id="@+id/createnewnextmanual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/gpassword2"
+            android:layout_below="@+id/gpassword1manual"
             android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
