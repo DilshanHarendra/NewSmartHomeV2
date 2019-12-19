@@ -55,7 +55,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
     private DrawerLayout drawerLayout;
     private Vibrator vibrator;
     private FirebaseDatabase firebaseDatabase;
-    private String uid="user01";
+    private String uid="default user";
     private SearchView searchView;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -75,14 +75,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-
-
-        //PlugListFrag plugListFrag = new PlugListFrag();
+            //PlugListFrag plugListFrag = new PlugListFrag();
         searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -123,25 +116,29 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         navmail = (TextView) navView.findViewById(R.id.navmail);
         imageView1=(ImageView) navView.findViewById(R.id.imageView);
 
-        //FirebaseHanlder firebaseHanlder = new FirebaseHanlder();
-        DatabaseReference rootRef = firebaseDatabase.getReference().child("Users");
-        rootRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data: dataSnapshot.getChildren()){
-                    try{
-                        if (data.child("UId").getValue().toString().trim().equals(uid)) {
-                            hName.setText(data.child("SHname").getValue().toString().trim());
-                            navmail.setText(data.child("UEmail").getValue().toString().trim());
-                        }
-                    }catch (Exception e){ Log.d("nsmart", "error "+e); }
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            uid = acct.getId().toString();
+            DatabaseReference rootRef = firebaseDatabase.getReference().child("Users").child(uid);
+            rootRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        hName.setText(dataSnapshot.child("SHname").getValue().toString().trim());
+                        navmail.setText(dataSnapshot.child("UEmail").getValue().toString().trim());
+                    }catch (Exception e){
+                        hName.setText("hname Error");
+                        navmail.setText("email Error");
+                    }
                 }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
-        });
-
-
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) { }
+            });
+        }
 
         if (Build.VERSION.SDK_INT>=21){
             ImageView icon = new ImageView(this); // Create an icon
@@ -216,19 +213,8 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
 
         }
 
-
-
-
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater menuInflater = getMenuInflater();
-//        menuInflater.inflate(R.menu.search_view,menu);
-//        MenuItem search_item = menu.findItem(R.id.action_search);
-//        SearchView searchView = (SearchView) search_item.getActionView();
-//        return true;
-//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

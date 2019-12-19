@@ -1,5 +1,7 @@
 package com.nmadcreations.newsmarthomev2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,16 +14,20 @@ import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseHanlder {
 
-    private String homeName="home1";
+    SharedPreferences sharedPreferences;
+    private String homeName = "";
     int c=0;
     long x=0;
-    public FirebaseHanlder(){
-
+    public FirebaseHanlder(Context context){
+        sharedPreferences = context.getSharedPreferences("smartHome",context.MODE_PRIVATE);
+        homeName=sharedPreferences.getString("homeName","");
+       // homeName=sharedPreferences.getString("homeName","");
     }
 
     FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
 
-    public void addUser(String uid,String ufname, String ulname, String ugivenname,String uemail) {
+
+    public void addUser(String uid, String ufname, String ulname, String ugivenname, String uemail) {
         firebaseDatabase.getReference().child("Users").child(uid).child("UId").setValue(uid);
         firebaseDatabase.getReference().child("Users").child(uid).child("UFname").setValue(ufname);
         firebaseDatabase.getReference().child("Users").child(uid).child("ULname").setValue(ulname);

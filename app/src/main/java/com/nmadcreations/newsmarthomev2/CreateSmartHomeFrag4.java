@@ -35,7 +35,7 @@ public class CreateSmartHomeFrag4 extends Fragment {
     private EditText name,pass1;
     private SharedPreferences sharedPreferences;
     private TextView textView;
-    private String uid="user02";
+    private String uid=" ";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

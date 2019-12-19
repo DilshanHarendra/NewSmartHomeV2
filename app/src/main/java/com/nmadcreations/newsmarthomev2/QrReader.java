@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,12 +18,19 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -36,9 +44,14 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
     private ZXingScannerView scannerView;
     private FirebaseHanlder firebaseHanlder;
     private FirebaseDatabase firebaseDatabase;
+    private GoogleSignInClient mGoogleSignInClient;
+    private SharedPreferences sharedPreferences;
+
+
 
     private Vibrator vibrator;
     private int availableStatus = 2;
+    private String userId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +60,16 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
         setContentView(scannerView);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
+        sharedPreferences = this.getSharedPreferences("smartHome",this.MODE_PRIVATE);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            userId = acct.getId().toString();
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (checkPermission()){
@@ -141,7 +164,7 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
         final EditText nickname = new EditText(QrReader.this);
 
         if (scanResults.startsWith("S!")) {
-            if(checkavailability(scanResults.toString())) {
+            if (checkavailability(scanResults.toString())) {
                 vibrator.vibrate(100);
                 builder.setTitle("Enter device name:");
                 //builder.setMessage(scanResults);
@@ -159,7 +182,7 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
                         }
 //                        intent.putExtra("deviceIdQr", deviceId);
 //                        intent.putExtra("nickname", nn);
-                        addDevicetoFirebase(deviceId,nn);
+                        addDevicetoFirebase(deviceId, nn);
                         onStop();
                         startActivity(intent);
                         finish();
@@ -171,7 +194,7 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
                         scannerView.resumeCameraPreview(QrReader.this);
                     }
                 });
-            }else {
+            } else {
                 vibrator.vibrate(500);
                 builder.setTitle("Error!..");
                 builder.setMessage("This device already have in your device list or Network error");
@@ -191,6 +214,38 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
                     }
                 });
             }
+        }else if (scanResults.startsWith("S^")){
+            vibrator.vibrate(100);
+            final String hname = scanResults.substring(3).toString();
+            final Date currentTime = Calendar.getInstance().getTime();
+            builder.setTitle("Add SmartHome");
+            builder.setMessage("Do you want to add "+hname+" to your account.");
+            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences.Editor editor =sharedPreferences.edit();
+                    editor.putString("homeName",hname.trim());
+                    //editor.putString("homePassword",pass1.getText().toString().trim());
+                    editor.commit();
+                    FirebaseDatabase.getInstance().getReference().child("SmartHome").child(hname.trim()).child("User").child(userId).setValue("user/"+currentTime);
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("SHname").setValue(hname.trim());
+                    onStop();
+                    startActivity(new Intent(QrReader.this,MainHome.class));
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //Intent intent = new Intent(QrReader.this, MainHome.class);
+                    onStop();
+                    //startActivity(intent);
+                    //finish();
+                }
+            });
+            //FirebaseDatabase.getInstance().getReference().child("SmartHome").child(name.getText().toString().trim()).child("User").child(userId).setValue("user/"+currentTime);
+            //FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("SHname").setValue(name.getText().toString().trim());
+            Toast.makeText(this, ""+hname.toString(), Toast.LENGTH_SHORT).show();
         } else {
             vibrator.vibrate(500);
             builder.setTitle("Error!..");
@@ -242,7 +297,7 @@ public class QrReader extends AppCompatActivity implements ZXingScannerView.Resu
     }
 
     private void addDevicetoFirebase(String qrId, String nickName){
-        firebaseHanlder = new FirebaseHanlder();
+        firebaseHanlder = new FirebaseHanlder(this);
         if (qrId.startsWith("S!-RGB")){
             firebaseHanlder.addRgbDevice(qrId,nickName,"RGB");
         }else if (qrId.startsWith("S!-PLG")){

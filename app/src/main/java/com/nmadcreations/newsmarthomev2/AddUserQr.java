@@ -40,7 +40,7 @@ public class AddUserQr extends AppCompatActivity {
         int height=point.y;
         int small=width<height ? width:height;
         small=small*3/4;
-        qrgEncoder = new QRGEncoder(homeName+"/"+pass,null, QRGContents.Type.TEXT,small);
+        qrgEncoder = new QRGEncoder("S^-"+homeName,null, QRGContents.Type.TEXT,small);
         try {
             bitmap=qrgEncoder.encodeAsBitmap();
             imageView.setImageBitmap(bitmap);
