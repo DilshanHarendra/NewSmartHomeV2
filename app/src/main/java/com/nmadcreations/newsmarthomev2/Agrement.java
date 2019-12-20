@@ -36,7 +36,7 @@ public class Agrement extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new FirebaseHanlder(Agrement.this).addUser(personId,personName,personFamilyName,personGivenName,personEmail);
-                startActivity(new Intent(Agrement.this,CreateSmartHome.class).putExtra("uid",personId));
+                startActivity(new Intent(Agrement.this,CreateSmartHome.class).putExtra("uid",personId).putExtra("name",personName));
                 finish();
             }
         });

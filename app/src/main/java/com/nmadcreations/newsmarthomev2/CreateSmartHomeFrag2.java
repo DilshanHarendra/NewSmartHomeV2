@@ -34,7 +34,7 @@ public class CreateSmartHomeFrag2 extends Fragment {
     private EditText name,pass1,pass2;
     private SharedPreferences sharedPreferences;
     private TextView textView;
-    private String uid="user01";
+    private String uid="user01",uname;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class CreateSmartHomeFrag2 extends Fragment {
 
         try {
             uid=getActivity().getIntent().getStringExtra("uid");
+            uname=getActivity().getIntent().getStringExtra("name");
         }catch (Exception e){
 
         }
@@ -93,7 +94,7 @@ public class CreateSmartHomeFrag2 extends Fragment {
                                 FirebaseDatabase.getInstance().getReference().child("SmartHome").child(name.getText().toString().trim()).child("password").setValue(pass1.getText().toString().trim());
                                 Date currentTime = Calendar.getInstance().getTime();
                                 Log.d("nsmart", "time "+currentTime);
-                                FirebaseDatabase.getInstance().getReference().child("SmartHome").child(name.getText().toString().trim()).child("User").child(uid).setValue("Admin/"+currentTime);
+                                FirebaseDatabase.getInstance().getReference().child("SmartHome").child(name.getText().toString().trim()).child("User").child(uid).setValue("Admin/"+uname+"/"+currentTime+"/1");
                                 FirebaseDatabase.getInstance().getReference().child("Users").child(uid).child("SHname").setValue(name.getText().toString().trim());
                                 SharedPreferences.Editor editor =sharedPreferences.edit();
                                 editor.putString("homeName",name.getText().toString().trim());

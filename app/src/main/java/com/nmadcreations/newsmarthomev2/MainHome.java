@@ -183,7 +183,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
                 @Override
                 public void onClick(View view) {
                     vibrator.vibrate(50);
-
+                    startActivity(new Intent(MainHome.this,AdminDashBoard.class));
                 }
             });
 

@@ -33,6 +33,7 @@ public class FirebaseHanlder {
         firebaseDatabase.getReference().child("Users").child(uid).child("ULname").setValue(ulname);
         firebaseDatabase.getReference().child("Users").child(uid).child("UGivenName").setValue(ugivenname);
         firebaseDatabase.getReference().child("Users").child(uid).child("UEmail").setValue(uemail);
+
     }
 
     public void addHometoUser(String uid,String hname){

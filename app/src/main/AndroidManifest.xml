@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GasController"></activity>
+        <activity android:name=".AdminDashBoard"></activity>
+        <activity android:name=".GasController" />
         <activity android:name=".Agrement" />
         <activity android:name=".Login" />
         <activity android:name=".AddUserQr" />

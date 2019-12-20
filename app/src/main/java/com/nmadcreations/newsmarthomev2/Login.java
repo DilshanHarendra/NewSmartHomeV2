@@ -1,8 +1,10 @@
 package com.nmadcreations.newsmarthomev2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,17 +16,25 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSignInClient;
     SignInButton signInButton;
     int RC_SIGN_IN =0;
+    SharedPreferences sharedPreferences;
+    String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         signInButton =findViewById(R.id.sign_in_button);
+
+        sharedPreferences =getSharedPreferences("smartHome",this.MODE_PRIVATE);
 
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +48,7 @@ public class Login extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
     }
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -60,9 +71,9 @@ public class Login extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
+           uid= GoogleSignIn.getLastSignedInAccount(this).getId().trim();
+            check();
 
-            startActivity( new Intent(this,Agrement.class));
-            finish();
         } catch (Exception e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -80,4 +91,38 @@ public class Login extends AppCompatActivity {
             finish();
         }
     }
+
+    private void check(){
+
+        FirebaseDatabase.getInstance().getReference().child("Users").
+                child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild("SHname")){
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("homeName",dataSnapshot.child("SHname").getValue().toString().trim());
+                    Log.d("nsmart", "2 login homename "+dataSnapshot.child("SHname").getValue().toString().trim());
+                    editor.commit();
+
+                    startActivity( new Intent(Login.this,MainHome.class));
+                    finish();
+                }else{
+                    startActivity( new Intent(Login.this,Agrement.class));
+                    finish();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+    }
+
+
 }
