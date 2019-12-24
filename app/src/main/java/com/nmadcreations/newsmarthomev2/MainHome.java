@@ -229,7 +229,7 @@ public class MainHome extends AppCompatActivity implements NavigationView.OnNavi
         }else if (id == R.id.nav_wifiConnect){
             startActivity(new Intent(MainHome.this,ConnectToWifi.class));
         }else if (id == R.id.nav_settings){
-
+            startActivity(new Intent(MainHome.this,AdminDashBoard.class));
         }else if (id == R.id.nav_singout){
             singout();
         }

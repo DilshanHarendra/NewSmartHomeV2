@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_android"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/navigation_userlist"
+        android:icon="@drawable/ic_person_add"
+        android:title="User List" />
+
+
+</menu>

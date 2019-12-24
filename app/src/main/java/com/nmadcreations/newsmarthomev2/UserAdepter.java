@@ -41,7 +41,7 @@ private String d[];
         final CheckBox checkBox =convertView.findViewById(R.id.checkBoxuser);
         d=getItem(position).split("/");
         name.setText(d[2]);
-        if (d[4].equals("1")){
+        if (d[3].equals("1")){
             checkBox.setChecked(false);
         }else {
             checkBox.setChecked(true);
